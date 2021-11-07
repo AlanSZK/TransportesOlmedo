@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+
+<AnchorPane prefHeight="727.0" prefWidth="1011.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.DetalleChoferesControlador">
+   <children>
+      <VBox layoutX="70.0" layoutY="107.0" prefHeight="69.0" prefWidth="238.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="63.0" text="Rut" />
+            <TextField />
+         </children>
+      </VBox>
+      <VBox layoutX="70.0" layoutY="176.0" prefHeight="69.0" prefWidth="238.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="63.0" text="Nombre" />
+            <TextField />
+         </children>
+      </VBox>
+      <VBox layoutX="363.0" layoutY="107.0" prefHeight="69.0" prefWidth="238.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="63.0" text="Teléfono" />
+            <TextField />
+         </children>
+      </VBox>
+      <TableView layoutX="70.0" layoutY="333.0" prefHeight="310.0" prefWidth="888.0">
+        <columns>
+          <TableColumn prefWidth="118.0" text="Fecha de inicio" />
+          <TableColumn minWidth="5.0" prefWidth="115.0" text="Fecha final" />
+            <TableColumn minWidth="5.0" prefWidth="162.0" text="Patente" />
+            <TableColumn minWidth="5.0" prefWidth="135.0" text="Odometro" />
+            <TableColumn minWidth="5.0" prefWidth="369.0" text="Detalle" />
+        </columns>
+      </TableView>
+      <Label layoutX="70.0" layoutY="46.0" text="Datos chofer">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="70.0" layoutY="312.0" text="Historial de envíos" />
+      <Button layoutX="70.0" layoutY="263.0" mnemonicParsing="false" text="Editar datos" />
+      <Label layoutX="70.0" layoutY="667.0" text="Envíos totales: " />
+   </children>
 </AnchorPane>
-

@@ -21,7 +21,7 @@ public class LoginControlador {
 			
 			fxml = new Scene(FXMLLoader.load(getClass().getResource("MenuAdmin.fxml")));
 			fxml.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			FUNCIONES.cambiarEscena(fxml,e);		
+			FUNCIONES.cambiarEscena(fxml,e,"Transportes Olmedo : Menú principal");		
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
