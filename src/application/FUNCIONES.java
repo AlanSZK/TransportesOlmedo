@@ -1,14 +1,11 @@
 package application;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class FUNCIONES {
 	public static void cambiarEscena (Scene fxml , ActionEvent e, String titulo)
@@ -21,7 +18,17 @@ public class FUNCIONES {
 		currentStage.setScene(fxml);
 		
 		
+	}
+	
+	public static void dialogoAlerta (String titulo, String msg)
+	{
+		Alert alerta = new Alert(AlertType.WARNING);
 		
+		alerta.setTitle(titulo);
+		alerta.setHeaderText(null);
+		alerta.setContentText(msg);
+		
+		alerta.showAndWait();
 	}
 	
 
