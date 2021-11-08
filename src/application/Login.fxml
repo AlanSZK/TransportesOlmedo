@@ -9,20 +9,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="665.0" prefWidth="543.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.LoginControlador">
+<AnchorPane prefHeight="665.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginControlador">
    <children>
       <ImageView fitHeight="213.0" fitWidth="239.0" layoutX="143.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="112.0" layoutY="255.0" text="Transportes Olmedo Administración" textFill="#051c68">
+      <Label layoutX="112.0" layoutY="255.0" text="Transportes Olmedo Administración" textFill="#08039a">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button layoutX="214.0" layoutY="539.0" mnemonicParsing="false" onAction="#verificar" text="Ingresar" />
+      <Button layoutX="214.0" layoutY="539.0" mnemonicParsing="false" onAction="#verificar" style="-fx-background-color: #08039a;" styleClass="btn" text="Ingresar" textFill="WHITE" />
       <Label layoutX="139.0" layoutY="333.0" text="Rut" />
       <TextField fx:id="rut" layoutX="139.0" layoutY="363.0" onAction="#verificar" prefHeight="31.0" prefWidth="242.0" />
       <Label layoutX="139.0" layoutY="418.0" text="Contraseña" />
