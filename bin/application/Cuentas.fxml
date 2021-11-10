@@ -12,18 +12,16 @@
    <children>
       <TableView fx:id="tablaChoferes" layoutX="78.0" layoutY="43.0" prefHeight="294.0" prefWidth="760.0">
         <columns>
-          <TableColumn prefWidth="56.0" text="N°" />
-          <TableColumn prefWidth="217.0" text="Rut" />
-            <TableColumn prefWidth="307.0" text="Nombre" />
-            <TableColumn prefWidth="179.0" text="Teléfono" />
+          <TableColumn fx:id="rutChoferCol" prefWidth="217.0" text="Rut" />
+            <TableColumn fx:id="nombreChoferCol" prefWidth="330.0" text="Nombre" />
+            <TableColumn fx:id="telChoferCol" prefWidth="212.0" text="Teléfono" />
         </columns>
       </TableView>
-      <TableView fx:id="tablaAdministradores" layoutX="75.0" layoutY="387.0" prefHeight="310.0" prefWidth="760.0">
+      <TableView fx:id="tablaAdministradores" layoutX="77.0" layoutY="401.0" prefHeight="310.0" prefWidth="760.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="N°" />
-          <TableColumn prefWidth="239.0" text="Rut" />
-            <TableColumn prefWidth="268.0" text="Nombre" />
-            <TableColumn prefWidth="177.0" text="Teléfono" />
+          <TableColumn fx:id="rutAdminCol" prefWidth="225.0" text="Rut" />
+            <TableColumn fx:id="nombreAdminCol" prefWidth="326.0" text="Nombre" />
+            <TableColumn fx:id="telAdminCol" prefWidth="208.0" text="Teléfono" />
         </columns>
       </TableView>
       <Label layoutX="78.0" layoutY="14.0" text="Choféres">
@@ -31,15 +29,16 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="75.0" layoutY="357.0" text="Administradores">
+      <Label layoutX="77.0" layoutY="371.0" text="Administradores">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <VBox layoutX="917.0" layoutY="75.0" prefHeight="200.0" prefWidth="130.0" spacing="30.0">
+      <VBox layoutX="917.0" layoutY="44.0" prefHeight="310.0" prefWidth="130.0" spacing="30.0">
          <children>
             <Button mnemonicParsing="false" onAction="#agregarChofer" prefHeight="49.0" prefWidth="145.0" text="Ingresar" />
             <Button mnemonicParsing="false" onAction="#editarChofer" prefHeight="49.0" prefWidth="145.0" text="Editar" />
+            <Button mnemonicParsing="false" onAction="#verHistorial" prefHeight="49.0" prefWidth="145.0" text="Ver historial" />
             <Button mnemonicParsing="false" onAction="#borrarChofer" prefHeight="49.0" prefWidth="145.0" text="Borrar" />
          </children>
       </VBox>
