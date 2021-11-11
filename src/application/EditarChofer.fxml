@@ -49,6 +49,6 @@
          </children>
       </VBox>
       <Button layoutX="357.0" layoutY="543.0" mnemonicParsing="false" onAction="#confirmar" text="Confirmar" />
-      <Button layoutX="177.0" layoutY="543.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+      <Button layoutX="177.0" layoutY="543.0" mnemonicParsing="false" onAction="#cerrar" text="Cancelar" />
    </children>
 </AnchorPane>

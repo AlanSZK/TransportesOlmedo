@@ -37,18 +37,18 @@
             <VBox layoutX="10.0" layoutY="166.0" prefHeight="54.0" prefWidth="274.0">
                <children>
                   <Label text="Nombre Administrador" />
-                  <TextField fx:id="nombreChofer" />
+                  <TextField fx:id="nombreAdministrador" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="144.0" prefHeight="75.0" prefWidth="274.0">
                <children>
                   <Label text="Teléfono" />
-                  <TextField fx:id="telefonoChofer" />
+                  <TextField fx:id="telefonoAdministrador" />
                </children>
             </VBox>
          </children>
       </VBox>
       <Button layoutX="357.0" layoutY="543.0" mnemonicParsing="false" onAction="#confirmar" text="Confirmar" />
-      <Button layoutX="177.0" layoutY="543.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+      <Button layoutX="177.0" layoutY="543.0" mnemonicParsing="false" onAction="#cerrar" text="Cancelar" />
    </children>
 </AnchorPane>

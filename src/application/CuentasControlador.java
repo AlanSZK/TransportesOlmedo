@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.mysql.cj.protocol.Resultset;
@@ -18,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -105,6 +107,8 @@ public class CuentasControlador implements Initializable {
 	//CARGAR TABLAS
 	public void cargarChoferes()
 	{
+		listaChoferes.clear();
+		
 		String query = "SELECT * FROM cuenta INNER JOIN chofer ON "
 				+ "chofer.id_cuenta=cuenta.id_cuenta";
 		
@@ -143,6 +147,8 @@ public class CuentasControlador implements Initializable {
 	}
 	public void cargarAdministradores()
 	{
+		listaAdministradores.clear();
+		
 		String query = "SELECT * FROM cuenta INNER JOIN administrador ON "
 				+ "administrador.id_cuenta=cuenta.id_cuenta";
 		Connection con = conector.conectar();
@@ -191,6 +197,8 @@ public class CuentasControlador implements Initializable {
 			stage.setTitle("Transportes Olmedo : Detalle Chofer");
 			stage.showAndWait();
 			
+			cargarChoferes();
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -200,37 +208,90 @@ public class CuentasControlador implements Initializable {
 	{
 		cuenta c = tablaChoferes.getSelectionModel().getSelectedItem(); //Cuenta del chofer seleccionado
 	
-		try {
-			FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarChofer.fxml"));
-			Parent root = loader.load();
-	
-			EditarChoferControlador ventana = loader.getController();
-			
-			ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
+		if(c!=null)
+		{
+			try {
+				FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarChofer.fxml"));
+				Parent root = loader.load();
 		
-			loader.setController(ventana);
+				EditarChoferControlador ventana = loader.getController();
+				
+				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
 			
-			Scene detalle = new Scene(root);
-			
-			Stage stage = new Stage();
-			stage.setScene(detalle);
-		
-			
-			stage.setTitle("Transportes Olmedo : Editar Chofer");
-			
-			
-			stage.showAndWait();
-			
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+				loader.setController(ventana);
+				
+				Scene detalle = new Scene(root);
+				Stage stage = new Stage();
+				
+				stage.setScene(detalle);
+				stage.setTitle("Transportes Olmedo : Editar Chofer");
+				stage.showAndWait();
+				
+				cargarChoferes();
+				
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
+		}
+		
 		
 		
 	}
 	public void borrarChofer (ActionEvent e)
 	{
+		
+		cuenta c = tablaChoferes.getSelectionModel().getSelectedItem();
+		
+		if(c != null)
+		{
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
+			
+			if(opcion.get()==ButtonType.OK)
+			{
+				Connection con = conector.conectar();	
+				
+				
+				
+				
+				int id = c.getIdCuenta();
+				
+				String query = "DELETE FROM cuenta WHERE cuenta.id_cuenta=?";
+				PreparedStatement pst = null;
+				
+				try {
+					pst = con.prepareStatement(query);
+					pst.setInt(1, id);
+					
+					pst.executeUpdate();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}finally {
+					try {
+						con.close();
+						pst.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				cargarChoferes();		
+			}
+			
+		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
+		}
+		
 		
 	}
 	public void verHistorial (ActionEvent e)
@@ -250,17 +311,43 @@ public class CuentasControlador implements Initializable {
 	
 	public void editarAdministrador (ActionEvent e)
 	{
-		try {
-			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("EditarAdministrador.fxml")));
-			Stage stage = new Stage();
-			stage.setScene(detalle);
-			stage.setTitle("Transportes Olmedo : Detalle Chofer");
-			stage.showAndWait();
+		cuenta c = tablaAdministradores.getSelectionModel().getSelectedItem(); //Cuenta del chofer seleccionado
+		
+		if(c!=null)
+		{
+			try {
+				FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarAdministrador.fxml"));
+				Parent root = loader.load();
+		
+				EditarAdministradorControlador ventana = loader.getController();
+				
+				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
 			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+				loader.setController(ventana);
+				
+				Scene detalle = new Scene(root);
+				Stage stage = new Stage();
+				
+				stage.setScene(detalle);
+				stage.setTitle("Transportes Olmedo : Editar Administrador");
+				stage.showAndWait();
+				
+				cargarAdministradores();
+				
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún administrador seleccionado");
+		}
+		
+		
+		
+		
 	}
 	public void agregarAdministrador (ActionEvent e)
 	{
@@ -271,6 +358,8 @@ public class CuentasControlador implements Initializable {
 			stage.setTitle("Transportes Olmedo : Detalle Chofer");
 			stage.showAndWait();
 			
+			cargarAdministradores();
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -278,7 +367,57 @@ public class CuentasControlador implements Initializable {
 	}
 	public void borrarAdministrador (ActionEvent e)
 	{
+		cuenta c = tablaAdministradores.getSelectionModel().getSelectedItem();
 		
+		if(c != null && !c.nombreUsuario.equals("admin"))
+		{
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
+			
+			if(opcion.get()==ButtonType.OK)
+			{
+				Connection con = conector.conectar();	
+				
+				int id = c.getIdCuenta();
+				
+				String query = "DELETE FROM cuenta WHERE cuenta.id_cuenta=?";
+				PreparedStatement pst = null;
+				
+				try {
+					pst = con.prepareStatement(query);
+					pst.setInt(1, id);
+					
+					pst.executeUpdate();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}finally {
+					try {
+						con.close();
+						pst.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				cargarChoferes();		
+			}
+			
+		}
+		else if(c.nombreUsuario.equals("admin"))
+		{
+			FUNCIONES.dialogo("Información", "La cuenta seleccionada no puede ser borrada");
+		}
+		
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún administrador seleccionado");
+		}
+		
+		
+		
+		cargarAdministradores();
 	}
 	
 	public void volver (ActionEvent e)
