@@ -207,7 +207,7 @@ public class CuentasControlador implements Initializable {
 			EditarChoferControlador ventana = loader.getController();
 			
 			ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
-		 
+		
 			loader.setController(ventana);
 			
 			Scene detalle = new Scene(root);
