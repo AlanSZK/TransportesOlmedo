@@ -194,7 +194,7 @@ public class CuentasControlador implements Initializable {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarChofer.fxml")));
 			Stage stage = new Stage();
 			stage.setScene(detalle);
-			stage.setTitle("Transportes Olmedo : Detalle Chofer");
+			stage.setTitle("Transportes Olmedo : Agregar Chofer");
 			stage.showAndWait();
 			
 			cargarChoferes();
