@@ -55,7 +55,8 @@ public class CuentasControlador implements Initializable {
 			this.telefono=tel;
 		}
 		
-		
+	
+
 		public int getIdCuenta() {
 			return idCuenta;
 		}
@@ -113,7 +114,281 @@ public class CuentasControlador implements Initializable {
 	ConectorBDD conector = new ConectorBDD();
 	ConectorFirebase conectorFirebase = new ConectorFirebase();
 	
-	//CARGAR TABLAS
+	
+	
+	
+	
+	public void volver (ActionEvent e)
+	{
+		listaAdministradores.clear();
+		listaChoferes.clear();
+		
+		try {
+			Scene vista = new Scene(FXMLLoader.load(getClass().getResource("MenuAdmin.fxml")));
+			vista.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			FUNCIONES.cambiarEscena(vista, e, "Transportes Olmedo : Menú principal");
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	
+		
+		
+
+	public void cargarAdministradores()
+	{
+		
+		listaAdministradores.clear();
+		
+		CollectionReference administradores = ConectorFirebase.bdd.collection("administradores");
+		
+		ApiFuture<QuerySnapshot> querySnapshot = administradores.get();
+		
+		try {
+			for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
+			{
+				
+				cuenta c = new cuenta(
+						Integer.valueOf(doc.get("idCuenta").toString()), 
+						doc.get("usuario").toString(), 
+						doc.get("contrasena").toString(), 
+						doc.get("rut").toString(), 
+						doc.get("nombre").toString(), 
+						doc.get("telefono").toString()				
+					);
+																					
+				listaAdministradores.add(c);
+				
+			}
+			
+			tablaAdministradores.setItems(listaAdministradores);
+			
+			
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	
+	public void cargarChoferes () throws InterruptedException, ExecutionException, IOException
+	{
+	
+		listaChoferes.clear();
+		
+		CollectionReference choferes = ConectorFirebase.bdd.collection("choferes");
+		
+		ApiFuture<QuerySnapshot> querySnapshot = choferes.get();
+		
+		for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
+		{
+			cuenta c = new cuenta(
+					Integer.valueOf(doc.get("idCuenta").toString()), 
+					doc.get("usuario").toString(), 
+					doc.get("contrasena").toString(), 
+					doc.get("rut").toString(), 
+					doc.get("nombre").toString(), 
+					doc.get("telefono").toString()				
+				);
+																				
+			listaChoferes.add(c);
+		}
+		
+		tablaChoferes.setItems(listaChoferes);
+		
+	}
+	
+
+
+	//BOTONES CHOFER
+	public void agregarChofer (ActionEvent e) throws InterruptedException, ExecutionException
+	{
+		try {
+			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarChofer.fxml")));
+			Stage stage = new Stage();
+			stage.setScene(detalle);
+			stage.setTitle("Transportes Olmedo : Agregar Chofer");
+			stage.showAndWait();
+			
+			cargarChoferes();
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	public void editarChofer (ActionEvent e) throws InterruptedException, ExecutionException
+	{
+		cuenta c = tablaChoferes.getSelectionModel().getSelectedItem(); //Cuenta del chofer seleccionado
+	
+		if(c!=null)
+		{
+			try {
+				FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarChofer.fxml"));
+				Parent root = loader.load();
+		
+				EditarChoferControlador ventana = loader.getController();
+				
+				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
+			
+				loader.setController(ventana);
+				
+				Scene detalle = new Scene(root);
+				Stage stage = new Stage();
+				
+				stage.setScene(detalle);
+				stage.setTitle("Transportes Olmedo : Editar Chofer");
+				stage.showAndWait();
+				
+				cargarChoferes();
+				
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
+		}
+		
+		
+		
+	}
+	public void borrarChofer (ActionEvent e)
+	{
+		
+		
+		
+	}
+	public void verHistorial (ActionEvent e)
+	{
+		try {
+			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("DetalleChoferes.fxml")));
+			Stage stage = new Stage();
+			stage.setScene(detalle);
+			stage.setTitle("Transportes Olmedo : Historial Chofer");
+			stage.showAndWait();
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void editarAdministrador (ActionEvent e)
+	{
+		cuenta c = tablaAdministradores.getSelectionModel().getSelectedItem(); //Cuenta del chofer seleccionado
+		
+		if(c!=null)
+		{
+			try {
+				FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarAdministrador.fxml"));
+				Parent root = loader.load();
+		
+				EditarAdministradorControlador ventana = loader.getController();
+				
+				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
+			
+				loader.setController(ventana);
+				
+				Scene detalle = new Scene(root);
+				Stage stage = new Stage();
+				
+				stage.setScene(detalle);
+				stage.setTitle("Transportes Olmedo : Editar Administrador");
+				stage.showAndWait();
+				
+				cargarAdministradores();
+				
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún administrador seleccionado");
+		}
+		
+		
+		
+		
+	}
+	public void agregarAdministrador (ActionEvent e)
+	{
+		try {
+			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarAdministrador.fxml")));
+			Stage stage = new Stage();
+			stage.setScene(detalle);
+			stage.setTitle("Transportes Olmedo : Detalle Chofer");
+			stage.showAndWait();
+			
+			cargarAdministradores();
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	public void borrarAdministrador (ActionEvent e)
+	{
+		
+			
+	
+		
+		
+		
+	}
+	
+	
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		rutAdminCol.setCellValueFactory(new PropertyValueFactory<>("rut"));
+		nombreAdminCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+		telAdminCol.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+		
+		rutChoferCol.setCellValueFactory(new PropertyValueFactory<>("rut"));
+		nombreChoferCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+		telChoferCol.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+		
+		
+		try {
+			cargarChoferes();
+			cargarAdministradores();
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/*
+		try {
+			cargarChoferesFirebase();
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		
+	}
+	
+	
+	
+	//CARGAR TABLAS MY SQL
+	
+	
+	/*
 	public void cargarChoferes()
 	{
 		listaChoferes.clear();
@@ -447,45 +722,10 @@ public class CuentasControlador implements Initializable {
 		cargarAdministradores();
 	}
 	
-	public void volver (ActionEvent e)
-	{
-		listaAdministradores.clear();
-		listaChoferes.clear();
-		
-		try {
-			Scene vista = new Scene(FXMLLoader.load(getClass().getResource("MenuAdmin.fxml")));
-			vista.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			FUNCIONES.cambiarEscena(vista, e, "Transportes Olmedo : Menú principal");
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		rutAdminCol.setCellValueFactory(new PropertyValueFactory<>("rut"));
-		nombreAdminCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		telAdminCol.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-		
-		rutChoferCol.setCellValueFactory(new PropertyValueFactory<>("rut"));
-		nombreChoferCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		telChoferCol.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-		
-		
-		cargarChoferes();
-		
-		/*
-		try {
-			cargarChoferesFirebase();
-		} catch (InterruptedException | ExecutionException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		cargarAdministradores();
-		
-	}
+	*/
+	
+	
+
+	
 }
