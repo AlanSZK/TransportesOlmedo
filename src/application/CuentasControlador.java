@@ -8,7 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QuerySnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mysql.cj.protocol.Resultset;
 
 import javafx.collections.FXCollections;
@@ -103,6 +111,7 @@ public class CuentasControlador implements Initializable {
 	ObservableList<cuenta> listaAdministradores = FXCollections.observableArrayList();
 	
 	ConectorBDD conector = new ConectorBDD();
+	ConectorFirebase conectorFirebase = new ConectorFirebase();
 	
 	//CARGAR TABLAS
 	public void cargarChoferes()
@@ -187,6 +196,24 @@ public class CuentasControlador implements Initializable {
 		
 	}
 	
+	public void cargarChoferesFirebase () throws InterruptedException, ExecutionException, IOException
+	{
+	
+		
+		
+		CollectionReference camiones = ConectorFirebase.bdd.collection("choferes");
+		
+		ApiFuture<QuerySnapshot> querySnapshot = camiones.get();
+		
+		for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
+		{
+			System.out.println(doc.get("patente"));
+		}
+		
+	}
+	
+
+
 	//BOTONES CHOFER
 	public void agregarChofer (ActionEvent e)
 	{
@@ -449,6 +476,15 @@ public class CuentasControlador implements Initializable {
 		
 		
 		cargarChoferes();
+		
+		/*
+		try {
+			cargarChoferesFirebase();
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 		cargarAdministradores();
 		
 	}
