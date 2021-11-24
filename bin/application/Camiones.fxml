@@ -6,13 +6,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="617.0" prefWidth="938.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.CamionesControlador">
+<AnchorPane prefHeight="617.0" prefWidth="938.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CamionesControlador">
    <children>
-      <TableView fx:id="tablaCamiones" layoutX="71.0" layoutY="81.0" prefHeight="359.0" prefWidth="620.0">
+      <TableView fx:id="tablaCamion" layoutX="71.0" layoutY="81.0" prefHeight="359.0" prefWidth="620.0">
         <columns>
-          <TableColumn prefWidth="148.0" text="Patente" />
-          <TableColumn prefWidth="471.0" text="Marca" />
+          <TableColumn fx:id="FXpat" prefWidth="148.0" text="Patente" />
+          <TableColumn fx:id="FXmar" prefWidth="471.0" text="Marca" />
         </columns>
       </TableView>
       <VBox layoutX="739.0" layoutY="127.0" prefHeight="200.0" prefWidth="130.0" spacing="30.0">
