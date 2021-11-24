@@ -22,7 +22,7 @@
          </font>
       </Label>
       <Button layoutX="214.0" layoutY="539.0" mnemonicParsing="false" onAction="#verificar" style="-fx-background-color: #08039a;" styleClass="btn" text="Ingresar" textFill="WHITE" />
-      <Label layoutX="139.0" layoutY="333.0" text="Rut" />
+      <Label layoutX="141.0" layoutY="333.0" text="Rut o nombre de usuario" />
       <TextField fx:id="rut" layoutX="139.0" layoutY="363.0" onAction="#verificar" prefHeight="31.0" prefWidth="242.0" />
       <Label layoutX="139.0" layoutY="418.0" text="Contraseña" />
       <PasswordField fx:id="contrasena" layoutX="139.0" layoutY="447.0" onAction="#verificar" prefHeight="31.0" prefWidth="242.0" />
