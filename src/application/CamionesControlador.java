@@ -3,6 +3,19 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QuerySnapshot;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +26,7 @@ import javafx.scene.control.TableView;
 
 public class CamionesControlador implements Initializable {
 	
-
+	ConectorFirebase conector = new ConectorFirebase();
 	
 	public class camion
 	{
@@ -56,6 +69,23 @@ public class CamionesControlador implements Initializable {
 	{
 		
 	}
+	
+	
+	public void cargarCamionesFirebase () throws InterruptedException, ExecutionException, IOException
+	{
+	
+		
+		CollectionReference camiones = ConectorFirebase.bdd.collection("camiones");
+		
+		ApiFuture<QuerySnapshot> querySnapshot = camiones.get();
+		
+		for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
+		{
+			System.out.println(doc.get("patente"));
+		}
+			
+	}	
+	
 
 	public void agregarCamion(ActionEvent e)
 	{
@@ -71,7 +101,14 @@ public class CamionesControlador implements Initializable {
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		try {
+			cargarCamionesFirebase();
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		
+		
+		// TODO Auto-generated method stu	
+		}
 	}
 }

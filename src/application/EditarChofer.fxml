@@ -16,16 +16,16 @@
                   <TextField fx:id="idUsuario" editable="false" />
                </children>
             </VBox>
-            <VBox layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="274.0">
-               <children>
-                  <Label text="Nombre de usuario" />
-                  <TextField fx:id="nombreUsuario" editable="false" />
-               </children>
-            </VBox>
             <VBox layoutX="10.0" layoutY="218.0" prefHeight="312.0" prefWidth="274.0">
                <children>
                   <Label text="Rut" />
                   <TextField fx:id="rutUsuario" editable="false" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="274.0">
+               <children>
+                  <Label text="Nombre de usuario" />
+                  <TextField fx:id="nombreUsuario" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="110.0" prefHeight="76.0" prefWidth="274.0">
@@ -49,6 +49,6 @@
          </children>
       </VBox>
       <Button layoutX="357.0" layoutY="543.0" mnemonicParsing="false" onAction="#confirmar" text="Confirmar" />
-      <Button layoutX="177.0" layoutY="543.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+      <Button layoutX="177.0" layoutY="543.0" mnemonicParsing="false" onAction="#cerrar" text="Cancelar" />
    </children>
 </AnchorPane>
