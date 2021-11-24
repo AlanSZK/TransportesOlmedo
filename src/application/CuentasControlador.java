@@ -111,7 +111,7 @@ public class CuentasControlador implements Initializable {
 	ObservableList<cuenta> listaAdministradores = FXCollections.observableArrayList();
 	
 	ConectorBDD conector = new ConectorBDD();
-	ConectorFirebase conectorFirebase = new ConectorFirebase();
+	
 	
 	//CARGAR TABLAS
 	public void cargarChoferes()
@@ -201,9 +201,9 @@ public class CuentasControlador implements Initializable {
 	
 		
 		
-		CollectionReference camiones = ConectorFirebase.bdd.collection("choferes");
+		CollectionReference choferes = ConectorFirebase.bdd.collection("choferes");
 		
-		ApiFuture<QuerySnapshot> querySnapshot = camiones.get();
+		ApiFuture<QuerySnapshot> querySnapshot = choferes.get();
 		
 		for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
 		{
