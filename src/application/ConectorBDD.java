@@ -13,6 +13,7 @@ public class ConectorBDD {
 		String nombreBDD="mydb";
 		String nombreUsuario="root";
 		String contrasena="";
+
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

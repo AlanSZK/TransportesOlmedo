@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class FUNCIONES {
+<<<<<<< HEAD
 	public static void cambiarEscena (Scene fxml , ActionEvent e, String titulo)
 	{
 		
@@ -74,6 +75,13 @@ public class FUNCIONES {
 		
 	}
 
-}
 
+
+    
+
+   
+
+
+
+}
 
