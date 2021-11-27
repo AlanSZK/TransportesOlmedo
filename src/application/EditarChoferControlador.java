@@ -5,6 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.WriteResult;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,9 +29,70 @@ public class EditarChoferControlador {
 	@FXML private TextField contrasenaUsuario=new TextField();
 	@FXML private TextField nombreChofer=new TextField();
 	@FXML private TextField telefonoChofer=new TextField();
+	String idDocumento;
 	
 	
 	
+	public void confirmar(ActionEvent e) throws InterruptedException, ExecutionException
+	{
+
+		Optional<ButtonType> confirmacion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea continuar?");
+		
+		if (confirmacion.get() == ButtonType.OK)
+		{
+			
+			TextField[] campos = {
+				contrasenaUsuario,
+				nombreChofer,
+				telefonoChofer
+			};
+			
+			if(FUNCIONES.camposVacios(campos))
+			{
+				FUNCIONES.dialogoAlerta("Error", "Existen campos vacíos");
+			}
+			
+			else
+			{
+				
+						
+				DocumentReference ref = ConectorFirebase.bdd.collection("choferes").document(idDocumento);
+				
+				ref.update("contrasena",contrasenaUsuario.getText());
+				ref.update("nombre",nombreChofer.getText());
+				ref.update("telefono",telefonoChofer.getText());
+			
+			
+				cerrar(e);
+			}																		
+					
+				
+		}	
+	
+		
+	
+	}
+	public void cerrar (ActionEvent e)
+	{
+		Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();
+		stage.close();
+		
+	}
+
+	public void inicializarVariables(int id, String usr, String rut, String con, String nom, String tel,String docId)
+	{
+		idUsuario.setText(String.valueOf(id));
+		nombreUsuario.setText(usr);
+		rutUsuario.setText(rut);
+		contrasenaUsuario.setText(con);
+		nombreChofer.setText(nom);
+		telefonoChofer.setText(tel);
+		idDocumento = docId;
+		
+		
+	}
+	
+	/*
 	@SuppressWarnings("resource")
 	public void confirmar (ActionEvent e)
 	{
@@ -99,24 +168,6 @@ public class EditarChoferControlador {
 			cerrar(e);
 		}
 	}
-	
-	public void cerrar (ActionEvent e)
-	{
-		Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();
-		stage.close();
-		
-	}
-
-	public void inicializarVariables(int id, String usr, String rut, String con, String nom, String tel)
-	{
-		idUsuario.setText(String.valueOf(id));
-		nombreUsuario.setText(usr);
-		rutUsuario.setText(rut);
-		contrasenaUsuario.setText(con);
-		nombreChofer.setText(nom);
-		telefonoChofer.setText(tel);
-		
-	}
-	
+	*/
 
 }

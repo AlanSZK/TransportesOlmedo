@@ -2,10 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -13,11 +9,8 @@ import java.util.concurrent.ExecutionException;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.mysql.cj.protocol.Resultset;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,8 +37,9 @@ public class CuentasControlador implements Initializable {
 		private String rut;
 		private String nombre;
 		private String telefono;
+		private String idDocumento;
 		
-		public cuenta (int id,String usr,String con,String rut,String nom,String tel)
+		public cuenta (int id,String usr,String con,String rut,String nom,String tel,String idDoc)
 		{
 			this.idCuenta=id;
 			this.nombreUsuario=usr;
@@ -53,6 +47,8 @@ public class CuentasControlador implements Initializable {
 			this.rut=rut;
 			this.nombre=nom;
 			this.telefono=tel;
+			this.idDocumento = idDoc;
+			
 		}
 		
 	
@@ -93,6 +89,16 @@ public class CuentasControlador implements Initializable {
 		public void setTelefono(String telefono) {
 			this.telefono = telefono;
 		}
+
+
+		public String getIdDocumento() {
+			return idDocumento;
+		}
+
+
+		public void setIdDocumento(String idDocumento) {
+			this.idDocumento = idDocumento;
+		}
 		
 	}
 	
@@ -112,7 +118,8 @@ public class CuentasControlador implements Initializable {
 	ObservableList<cuenta> listaAdministradores = FXCollections.observableArrayList();
 	
 	ConectorBDD conector = new ConectorBDD();
-	
+	public static int contadorChoferes = 0;
+	public static int contadorAdmins= 0;
 	
 	
 	
@@ -142,6 +149,7 @@ public class CuentasControlador implements Initializable {
 	{
 		
 		listaAdministradores.clear();
+		contadorAdmins=0;
 		
 		CollectionReference administradores = ConectorFirebase.bdd.collection("administradores");
 		
@@ -157,9 +165,11 @@ public class CuentasControlador implements Initializable {
 						doc.get("contrasena").toString(), 
 						doc.get("rut").toString(), 
 						doc.get("nombre").toString(), 
-						doc.get("telefono").toString()				
+						doc.get("telefono").toString(),	
+						doc.getId()
 					);
 																					
+				contadorAdmins++;
 				listaAdministradores.add(c);
 				
 			}
@@ -181,6 +191,7 @@ public class CuentasControlador implements Initializable {
 	{
 	
 		listaChoferes.clear();
+		contadorChoferes=0;
 		
 		CollectionReference choferes = ConectorFirebase.bdd.collection("choferes");
 		
@@ -194,9 +205,11 @@ public class CuentasControlador implements Initializable {
 					doc.get("contrasena").toString(), 
 					doc.get("rut").toString(), 
 					doc.get("nombre").toString(), 
-					doc.get("telefono").toString()				
+					doc.get("telefono").toString(),
+					doc.getId()
 				);
 																				
+			contadorChoferes++;
 			listaChoferes.add(c);
 		}
 		
@@ -218,6 +231,7 @@ public class CuentasControlador implements Initializable {
 			
 			cargarChoferes();
 			
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -235,7 +249,7 @@ public class CuentasControlador implements Initializable {
 		
 				EditarChoferControlador ventana = loader.getController();
 				
-				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
+				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono(),c.getIdDocumento());
 			
 				loader.setController(ventana);
 				
@@ -262,12 +276,33 @@ public class CuentasControlador implements Initializable {
 		
 		
 	}
-	public void borrarChofer (ActionEvent e)
+	public void borrarChofer (ActionEvent e) throws NumberFormatException, InterruptedException, ExecutionException, IOException
 	{
 		
+
 		
+		cuenta c = tablaChoferes.getSelectionModel().getSelectedItem();
 		
+		if(c != null)
+		{
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
+			
+			if(opcion.get()==ButtonType.OK)
+			{
+				
+				ConectorFirebase.bdd.collection("choferes").document(c.getIdDocumento()).delete();
+				cargarChoferes();
+																														
+			}
+				
+			else
+			{
+				FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
+			}
+			
+		}
 	}
+		
 	public void verHistorial (ActionEvent e)
 	{
 		try {
@@ -295,7 +330,7 @@ public class CuentasControlador implements Initializable {
 		
 				EditarAdministradorControlador ventana = loader.getController();
 				
-				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
+				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono(),c.getIdDocumento());
 			
 				loader.setController(ventana);
 				
@@ -329,7 +364,7 @@ public class CuentasControlador implements Initializable {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarAdministrador.fxml")));
 			Stage stage = new Stage();
 			stage.setScene(detalle);
-			stage.setTitle("Transportes Olmedo : Detalle Chofer");
+			stage.setTitle("Transportes Olmedo : Agregar administrador");
 			stage.showAndWait();
 			
 			cargarAdministradores();
@@ -341,12 +376,32 @@ public class CuentasControlador implements Initializable {
 	}
 	public void borrarAdministrador (ActionEvent e)
 	{
+		cuenta c = tablaAdministradores.getSelectionModel().getSelectedItem();
 		
+		if(c != null && c.getIdCuenta() != 1)
+		{
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
 			
-	
+			if(opcion.get()==ButtonType.OK)
+			{
+						
+				ConectorFirebase.bdd.collection("administradores").document(c.getIdDocumento()).delete();
+			}
+													
+		}
+		else if(c.getIdCuenta()==1)
+		{
+			FUNCIONES.dialogo("Información", "La cuenta seleccionada no puede ser borrada");
+		}
+		
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún administrador seleccionado");
+		}
 		
 		
 		
+		cargarAdministradores();
 	}
 	
 	

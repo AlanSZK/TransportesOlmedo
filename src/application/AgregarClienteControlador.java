@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.WriteResult;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +30,51 @@ public class AgregarClienteControlador {
 	
 	ConectorBDD conector = new ConectorBDD();
 	
+	public void confirmar (ActionEvent e)
+	{
+		Optional<ButtonType> confirmacion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea continuar?");
+		
+		if(confirmacion.get() == ButtonType.OK)
+		{
+			TextField[] campos = {rut,nombre,contacto,direccion,comuna,region};
+			
+			if (!FUNCIONES.camposVacios(campos))
+			{
+				Map<String, Object> datos = new HashMap<>();
+				
+				datos.put("idCliente", ClientesControlador.contadorClientes+1);
+				datos.put("nombre", nombre.getText());
+				datos.put("rut", rut.getText());
+				datos.put("direccion", direccion.getText());
+				datos.put("comuna", comuna.getText());
+				datos.put("region", region.getText());
+				datos.put("contacto", contacto.getText());
+				
+				String uuid = java.util.UUID.randomUUID().toString();
+				
+				
+				DocumentReference ref = ConectorFirebase.bdd.collection("clientes").document(uuid);
+				ApiFuture<WriteResult> resultado = ref.set(datos);
+				
+				cerrar(e);
+				
+			}
+			else
+			{
+				FUNCIONES.dialogoAlerta("Error", "Hay campos sin llenar");
+			}
+		}
+	}
+	
+	
+	public void cerrar (ActionEvent e)
+	{
+		Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();
+		stage.close();
+		
+	}
+	
+	/*
 	@SuppressWarnings("resource")
 	public void confirmar (ActionEvent e)
 	{
@@ -100,14 +151,6 @@ public class AgregarClienteControlador {
 		
 		
 	}
-	
-	public void cerrar (ActionEvent e)
-	{
-		Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();
-		stage.close();
-		
-	}
-	
-	
+	*/
 	
 }

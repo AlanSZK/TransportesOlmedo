@@ -39,32 +39,37 @@ public class CamionesControlador implements Initializable {
 	
 	
 	public class camion
-	{
-		private String patente;
-		private String marca;
-		
-		public camion (String pat, String mar) {
-			this.patente=pat;
-			this.marca=mar;
-		} 
-		
-		
-		public String getPatente() {
-			return patente;
-		}
-		public void setPatente(String patente) {
-			this.patente = patente;
-		}
-		public String getMarca() {
-			return marca;
-		}
-		public void setMarca(String marca) {
-			this.marca = marca;
-		}
-		
-		
-		
-	}
+    {
+        private String patente;
+        private String marca;
+        private String idDocumento;
+
+        public camion (String pat, String mar, String idD) {
+            this.patente=pat;
+            this.marca=mar;
+            this.idDocumento=idD;
+        } 
+
+        public String getPatente() {
+            return patente;
+        }
+        public void setPatente(String patente) {
+            this.patente = patente;
+        }
+        public String getMarca() {
+            return marca;
+        }
+        public void setMarca(String marca) {
+            this.marca = marca;
+        }
+        public String getIdDocumento() {
+            return idDocumento;
+        }
+        public void setIdDocumento(String idDocumento) {
+            this.idDocumento = idDocumento;
+        }
+
+    }
 	
 	@FXML TableView<camion> tablaCamion = new TableView<>();
 	@FXML TableColumn<camion, String>  FXpat = new TableColumn<>();
@@ -74,6 +79,25 @@ public class CamionesControlador implements Initializable {
 
 	ConectorBDD conector = new ConectorBDD();
 	
+	
+	public void cargarCamiones() throws InterruptedException, ExecutionException, IOException
+    {
+        listaCamiones.clear();
+        CollectionReference camiones = ConectorFirebase.bdd.collection("camiones");
+        ApiFuture<QuerySnapshot> querySnapshot = camiones.get();
+        for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
+        {
+            camion c = new camion(
+                    doc.get("patente").toString(), 
+                    doc.get("marca").toString(),
+                    doc.getId().toString()
+            );
+            listaCamiones.add(c);
+        }
+        tablaCamion.setItems(listaCamiones);
+    }
+	
+	/*
 	public void cargarCamiones() 
 	{
 		listaCamiones.clear();
@@ -111,7 +135,7 @@ public class CamionesControlador implements Initializable {
 		
 	}
 	
-
+	*/
 	
 	public void volver (ActionEvent e)
 	{
@@ -154,7 +178,12 @@ public class CamionesControlador implements Initializable {
 			stage.setTitle("Transportes Olmedo : Agregar Camion");
 			stage.showAndWait();
 			
-			cargarCamiones();
+			try {
+				cargarCamiones();
+			} catch (InterruptedException | ExecutionException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -186,7 +215,12 @@ public class CamionesControlador implements Initializable {
 		FXpat.setCellValueFactory(new PropertyValueFactory<>("patente"));
 		FXmar.setCellValueFactory(new PropertyValueFactory<>("marca"));
 		
-		cargarCamiones();
+		try {
+			cargarCamiones();
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		// TODO Auto-generated method stu	
