@@ -179,7 +179,7 @@ public class ClientesControlador implements Initializable{
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);
-				stage.setTitle("Transportes Olmedo : Editar Chofer");
+				stage.setTitle("Transportes Olmedo : Editar Cliente");
 				stage.showAndWait();
 				
 				
@@ -198,7 +198,7 @@ public class ClientesControlador implements Initializable{
 		}
 		else
 		{
-			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
+			FUNCIONES.dialogo("Información", "No hay ningún cliente seleccionado");
 		}
 		
 	}
@@ -208,7 +208,7 @@ public class ClientesControlador implements Initializable{
 		
 		if(c != null)
 		{
-			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar el cliente seleccionado?");
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar al cliente seleccionado?");
 			
 			if(opcion.get()==ButtonType.OK)
 			{

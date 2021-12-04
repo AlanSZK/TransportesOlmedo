@@ -19,12 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class GuiasControlador implements Initializable {
 
@@ -57,12 +59,16 @@ public class GuiasControlador implements Initializable {
 		private String patente;
 		private String region;
 		private String rut;
+		private String urlImagen;
+		private String fechaEntrega;
+		private String horaEntrega;
 		
 		
 		
 		
 		public guia(String chofer, String comuna, String contacto, String direccion, String estado, String fecha,
-				String id, String nombre, String patente, String region, String rut) {
+				String id, String nombre, String patente, String region, String rut, String urlImagen,
+				String fechaEntrega, String horaEntrega) {
 			super();
 			this.chofer = chofer;
 			this.comuna = comuna;
@@ -75,6 +81,9 @@ public class GuiasControlador implements Initializable {
 			this.patente = patente;
 			this.region = region;
 			this.rut = rut;
+			this.urlImagen = urlImagen;
+			this.fechaEntrega = fechaEntrega;
+			this.horaEntrega = horaEntrega;
 		}
 		public String getChofer() {
 			return chofer;
@@ -142,6 +151,24 @@ public class GuiasControlador implements Initializable {
 		public void setRut(String rut) {
 			this.rut = rut;
 		}
+		public String getUrlImagen() {
+			return urlImagen;
+		}
+		public void setUrlImagen(String urlImagen) {
+			this.urlImagen = urlImagen;
+		}
+		public String getFechaEntrega() {
+			return fechaEntrega;
+		}
+		public void setFechaEntrega(String fechaEntrega) {
+			this.fechaEntrega = fechaEntrega;
+		}
+		public String getHoraEntrega() {
+			return horaEntrega;
+		}
+		public void setHoraEntrega(String horaEntrega) {
+			this.horaEntrega = horaEntrega;
+		}
 	}
 	
 	
@@ -162,17 +189,58 @@ public class GuiasControlador implements Initializable {
 					doc.get("fecha").toString(), 
 					doc.get("id").toString(), 
 					doc.get("nombre").toString(), 
-					doc.get("patente").toString(), 
+					doc.get("camion").toString(), 
 					doc.get("region").toString(), 
-					doc.get("rut").toString());
-			
+					doc.get("rut").toString(),
+					doc.get("imagen").toString(),
+					doc.get("fechaEntrega").toString(),
+					doc.get("horaEntrega").toString()
+			);
 			guias.add(g);	
+		
+		}
+			
+		tablaGuias.setItems(guias);	
+			
 					
+	}
+		
+	public void verDetalle(ActionEvent e)
+	{
+		guia g = tablaGuias.getSelectionModel().getSelectedItem();
+		
+		if(g!=null)
+		{
+			try {
+				FXMLLoader loader = new FXMLLoader (getClass().getResource("DetalleGuias.fxml"));
+				Parent root = loader.load();
+				
+				DetalleGuiasControlador ventana = loader.getController();
+				ventana.inicializarVariables(g.getFechaEntrega(), g.getHoraEntrega(), g.getUrlImagen(),g.getId(),g.getPatente(),g.getChofer(),g.getDireccion(),g.getComuna(),g.getRegion(),g.getFecha(),g.getRut(),g.getNombre(),g.getContacto());
+				
+				loader.setController(ventana);
+				
+				Scene detalle = new Scene(root);
+				Stage stage = new Stage();
+				
+				stage.setScene(detalle);
+				stage.setTitle("Transportes Olmedo : Detalle Guía");
+				stage.showAndWait();
+				
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
-		tablaGuias.setItems(guias);
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ninguna guía seleccionada");
+		}
 		
 	}
+
 	
 	public void mostrarGuiasPorId (ActionEvent e)
 	{
@@ -183,6 +251,8 @@ public class GuiasControlador implements Initializable {
 		
 		if(input.trim().isEmpty())
 		{
+			
+			
 			tablaGuias.setItems(guias);
 	
 		}

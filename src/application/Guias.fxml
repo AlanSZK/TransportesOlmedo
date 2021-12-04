@@ -22,9 +22,8 @@
             <TableColumn fx:id="estadoCol" prefWidth="157.0" text="Estado" />
         </columns>
       </TableView>
-      <Button layoutX="173.0" layoutY="711.0" mnemonicParsing="false" onAction="#volver" text="Volver" />
-      <Button layoutX="479.0" layoutY="711.0" mnemonicParsing="false" text="Ver detalle" />
-      <Button layoutX="806.0" layoutY="711.0" mnemonicParsing="false" text="Generar Excel" />
+      <Button layoutX="135.0" layoutY="711.0" mnemonicParsing="false" onAction="#volver" text="Volver" />
+      <Button layoutX="483.0" layoutY="711.0" mnemonicParsing="false" onAction="#verDetalle" text="Ver detalle" />
       <DatePicker fx:id="fechaInput" layoutX="724.0" layoutY="55.0" onAction="#mostrarGuiasPorFecha" prefHeight="31.0" prefWidth="240.0" />
       <Label layoutX="601.0" layoutY="60.0" text="Buscar por fecha" />
       <Label layoutX="50.0" layoutY="60.0" text="Buscar por numero de guia/factura" />

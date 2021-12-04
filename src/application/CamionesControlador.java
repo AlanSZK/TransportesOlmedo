@@ -28,6 +28,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -50,7 +52,11 @@ public class CamionesControlador implements Initializable {
             this.idDocumento=idD;
         } 
 
-        public String getPatente() {
+        public camion() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public String getPatente() {
             return patente;
         }
         public void setPatente(String patente) {
@@ -78,6 +84,10 @@ public class CamionesControlador implements Initializable {
 	ObservableList <camion> listaCamiones = FXCollections.observableArrayList();
 
 	ConectorBDD conector = new ConectorBDD();
+	
+	public static String patente;
+	public static String marca;
+	public static String idDocumento;
 	
 	
 	public void cargarCamiones() throws InterruptedException, ExecutionException, IOException
@@ -167,6 +177,46 @@ public class CamionesControlador implements Initializable {
 			
 	}	
 	
+	@SuppressWarnings("unused")
+	public void verHistorial (ActionEvent e) throws IOException
+	{
+		camion c = tablaCamion.getSelectionModel().getSelectedItem(); //Cuenta del chofer seleccionado
+		
+		
+		
+		if(c!=null)
+		{
+			try {
+				FXMLLoader loader= new FXMLLoader(getClass().getResource("DetalleCamiones.fxml"));
+				Parent root = loader.load();
+		
+				DetalleCamionesControlador ventana = loader.getController();
+				
+				ventana.inicializarVariables(c.getPatente(),c.getMarca(),c.getIdDocumento());
+				
+				loader.setController(ventana);
+				
+				Scene detalle = new Scene(root);
+				Stage stage = new Stage();
+				
+				stage.setScene(detalle);
+				stage.setTitle("Transportes Olmedo : Historial camión");
+				stage.showAndWait();
+				
+
+				
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
+		}
+		
+	}
 	
 	
 	public void agregarCamion (ActionEvent e)
