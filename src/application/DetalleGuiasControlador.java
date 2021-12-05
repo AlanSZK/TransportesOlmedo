@@ -33,19 +33,19 @@ public class DetalleGuiasControlador {
 	
 	public void inicializarVariables (String fecha, String hora, String url, String id, String camion, String chofer, String direccion, String comuna, String region, String fechaGuia, String rut, String cliente, String contacto)
 	{
-		fechaEntregaLbl.setText(fechaEntregaLbl.getText()+fecha);
-		horaEntregaLbl.setText(horaEntregaLbl.getText()+hora);
+		fechaEntregaLbl.setText(fecha);
+		horaEntregaLbl.setText(hora);
 		imagenConfirmacion.setImage(new Image(url));
-		nGuiaLbl.setText(nGuiaLbl.getText()+id);
-		camionLbl.setText(camionLbl.getText()+camion);
-		choferLbl.setText(choferLbl.getText()+chofer);
-		direccionLbl.setText(direccionLbl.getText()+direccion);
-		comunaLbl.setText(comunaLbl.getText()+comuna);
-		regionLbl.setText(regionLbl.getText()+region);
-		fechaLbl.setText(fechaLbl.getText()+fechaGuia);
-		rutClienteLbl.setText(rutClienteLbl.getText()+rut);
-		nombreClienteLbl.setText(nombreClienteLbl.getText()+cliente);
-		contactoClienteLbl.setText(contactoClienteLbl.getText()+contacto);
+		nGuiaLbl.setText(id);
+		camionLbl.setText(camion);
+		choferLbl.setText(chofer);
+		direccionLbl.setText(direccion);
+		comunaLbl.setText(comuna);
+		regionLbl.setText(region);
+		fechaLbl.setText(fechaGuia);
+		rutClienteLbl.setText(rut);
+		nombreClienteLbl.setText(cliente);
+		contactoClienteLbl.setText(contacto);
 			
 	}
 	
