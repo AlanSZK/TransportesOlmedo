@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="libs/mysql-connector-java-8.0.26.jar"/>
 	<classpathentry kind="lib" path="libs/firebase-admin-8.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Firebase"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre1.8.0_291/lib/ext/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
