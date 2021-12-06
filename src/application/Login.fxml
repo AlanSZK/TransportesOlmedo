@@ -9,22 +9,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="665.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginControlador">
+<AnchorPane prefHeight="665.0" prefWidth="543.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginControlador">
    <children>
-      <ImageView fitHeight="213.0" fitWidth="239.0" layoutX="143.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="473.0" fitWidth="505.0" layoutX="14.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="112.0" layoutY="255.0" text="Transportes Olmedo Administración" textFill="#08039a">
+      <Button layoutX="161.0" layoutY="537.0" mnemonicParsing="false" onAction="#verificar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #1565c0; -fx-background-radius: 10;" styleClass="btn" text="Ingresar" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="18.0" />
+         </font></Button>
+      <Label layoutX="144.0" layoutY="369.0" text="Rut o nombre de usuario">
+         <font>
+            <Font name="SansSerif Bold Italic" size="18.0" />
+         </font></Label>
+      <TextField fx:id="rut" layoutX="139.0" layoutY="397.0" onAction="#verificar" prefHeight="31.0" prefWidth="242.0" style="-fx-background-radius: 10;" />
+      <PasswordField fx:id="contrasena" layoutX="139.0" layoutY="470.0" onAction="#verificar" prefHeight="31.0" prefWidth="242.0" style="-fx-background-radius: 10;" />
+      <Label layoutX="141.0" layoutY="442.0" text="Contraseña">
+         <font>
+            <Font name="SansSerif Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="214.0" layoutY="539.0" mnemonicParsing="false" onAction="#verificar" style="-fx-background-color: #08039a;" styleClass="btn" text="Ingresar" textFill="WHITE" />
-      <Label layoutX="141.0" layoutY="333.0" text="Rut o nombre de usuario" />
-      <TextField fx:id="rut" layoutX="139.0" layoutY="363.0" onAction="#verificar" prefHeight="31.0" prefWidth="242.0" />
-      <Label layoutX="139.0" layoutY="418.0" text="Contraseña" />
-      <PasswordField fx:id="contrasena" layoutX="139.0" layoutY="447.0" onAction="#verificar" prefHeight="31.0" prefWidth="242.0" />
    </children>
 </AnchorPane>

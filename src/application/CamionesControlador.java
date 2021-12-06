@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
@@ -21,24 +22,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import application.CuentasControlador.cuenta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+<<<<<<< HEAD
 import javafx.scene.Node;
+=======
+>>>>>>> cris
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class CamionesControlador implements Initializable {
-	
-	
 	
 	public class camion
     {
@@ -76,6 +78,7 @@ public class CamionesControlador implements Initializable {
         }
 
     }
+
 	
 	@FXML TableView<camion> tablaCamion = new TableView<>();
 	@FXML TableColumn<camion, String>  FXpat = new TableColumn<>();
@@ -84,6 +87,7 @@ public class CamionesControlador implements Initializable {
 	ObservableList <camion> listaCamiones = FXCollections.observableArrayList();
 
 	ConectorBDD conector = new ConectorBDD();
+
 	
 	public static String patente;
 	public static String marca;
@@ -107,46 +111,8 @@ public class CamionesControlador implements Initializable {
         tablaCamion.setItems(listaCamiones);
     }
 	
-	/*
-	public void cargarCamiones() 
-	{
-		listaCamiones.clear();
-		
-		Connection con = conector.conectar();
-		
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		
-		String query = "SELECT * FROM camion";
-		
-		try {
-			pst = con.prepareStatement(query);
-			rs = pst.executeQuery();
-			
-			while (rs.next()) {
-				camion c = new camion(rs.getString("patente"), rs.getString("marca"));
-				listaCamiones.add(c);
-			}
-			tablaCamion.setItems(listaCamiones);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				con.close();
-				pst.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-	}
 	
-	*/
-	
+		
 	public void volver (ActionEvent e)
 	{
 		try {
@@ -159,23 +125,6 @@ public class CamionesControlador implements Initializable {
 			e1.printStackTrace();
 		}
 	}
-	
-	
-	
-	public void cargarCamionesFirebase () throws InterruptedException, ExecutionException, IOException
-	{
-	
-		
-		CollectionReference camiones = ConectorFirebase.bdd.collection("camiones");
-		
-		ApiFuture<QuerySnapshot> querySnapshot = camiones.get();
-		
-		for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
-		{
-			System.out.println(doc.get("patente"));
-		}
-			
-	}	
 	
 	@SuppressWarnings("unused")
 	public void verHistorial (ActionEvent e) throws IOException
@@ -218,14 +167,13 @@ public class CamionesControlador implements Initializable {
 		
 	}
 	
-	
-	public void agregarCamion (ActionEvent e)
+	public void agregarCamion (ActionEvent e) throws InterruptedException, ExecutionException
 	{
 		try {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarCamiones.fxml")));
 			Stage stage = new Stage();
 			stage.setScene(detalle);
-			stage.setTitle("Transportes Olmedo : Agregar Camion");
+			stage.setTitle("Transportes Olmedo : Agregar Camiones");
 			stage.showAndWait();
 			
 			try {
@@ -235,35 +183,96 @@ public class CamionesControlador implements Initializable {
 				e1.printStackTrace();
 			}
 			
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 	
-	public void editarCamion(ActionEvent e)
-	{
-		
-	}
+	public void editarCamion (ActionEvent e) throws InterruptedException, ExecutionException
+    {
+        camion c = tablaCamion.getSelectionModel().getSelectedItem(); //Cuenta del camion seleccionado
+
+        if(c!=null)
+        {
+            try {
+                FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarCamion.fxml"));
+                Parent root = loader.load();
+
+                EditarCamionControlador ventana = (EditarCamionControlador)loader.getController();
+
+                ventana.inicializarVariables(c.getPatente(), c.getMarca(), c.getIdDocumento());
+                loader.setController(ventana);
+
+                Scene detalle = new Scene(root);
+                Stage stage = new Stage();
+
+                stage.setScene(detalle);
+                stage.setTitle("Transportes Olmedo : Editar Camión");
+                stage.showAndWait();
+
+                cargarCamiones();
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+        else
+        {
+            FUNCIONES.dialogo("Información", "No hay ningún camión seleccionado");
+        }
+    }
 	
-	public void borrarCamion(ActionEvent e)
-	{
-		
-	}
+	public void borrarCamion (ActionEvent e) throws NumberFormatException, InterruptedException, ExecutionException, IOException
+    {
+
+
+
+        camion c = tablaCamion.getSelectionModel().getSelectedItem();
+
+        if(c != null)
+        {
+            Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar el camión seleccionado?");
+
+            if(opcion.get()==ButtonType.OK)
+            {
+
+                ConectorFirebase.bdd.collection("camiones").document(c.getIdDocumento()).delete();
+                cargarCamiones();
+            }
+            else
+            {
+                FUNCIONES.dialogo("Información", "No hay ningún camión seleccionado");
+            }
+        }
+    }
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*
-		try {
-			cargarCamionesFirebase();
-		} catch (InterruptedException | ExecutionException | IOException e) {
-			// TODO Auto-generated catch block
-		
-		e.printStackTrace();
-		*/
-
 		FXpat.setCellValueFactory(new PropertyValueFactory<>("patente"));
 		FXmar.setCellValueFactory(new PropertyValueFactory<>("marca"));
+		
+		try {
+			cargarCamiones();
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
+}
+
+
+///MYSQL
+/* public void agregarCamion (ActionEvent e)
+{
+	try {
+		Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarCamiones.fxml")));
+		Stage stage = new Stage();
+		stage.setScene(detalle);
+		stage.setTitle("Transportes Olmedo : Agregar Camion");
+		stage.showAndWait();
 		
 		try {
 			cargarCamiones();
@@ -272,10 +281,85 @@ public class CamionesControlador implements Initializable {
 			e.printStackTrace();
 		}
 		
-		
-		// TODO Auto-generated method stu	
-		//}
-	
-	
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
 	}
+} */
+
+/* public void cargarCamiones() 
+{
+	listaCamiones.clear();
+	
+	Connection con = conector.conectar();
+	
+	PreparedStatement pst = null;
+	ResultSet rs = null;
+	
+	String query = "SELECT * FROM camion";
+	
+	try {
+		pst = con.prepareStatement(query);
+		rs = pst.executeQuery();
+		
+		while (rs.next()) {
+			camion c = new camion(rs.getString("patente"), rs.getString("marca"));
+			listaCamiones.add(c);
+		}
+		tablaCamion.setItems(listaCamiones);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		try {
+			con.close();
+			pst.close();
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+} */
+
+/*
+public void cargarCamiones() 
+{
+	listaCamiones.clear();
+	
+	Connection con = conector.conectar();
+	
+	PreparedStatement pst = null;
+	ResultSet rs = null;
+	
+	String query = "SELECT * FROM camion";
+	
+	try {
+		pst = con.prepareStatement(query);
+		rs = pst.executeQuery();
+		
+		while (rs.next()) {
+			camion c = new camion(rs.getString("patente"), rs.getString("marca"));
+			listaCamiones.add(c);
+		}
+		tablaCamion.setItems(listaCamiones);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		try {
+			con.close();
+			pst.close();
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
+
+*/
