@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1020.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuAdminControlador">
+<AnchorPane prefHeight="700.0" prefWidth="1020.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuAdminControlador">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="240.0" layoutY="125.0" prefHeight="506.0" prefWidth="530.0" spacing="30.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#aClientes" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" text="   Clientes   " textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#aClientes" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="   Clientes   " textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
@@ -24,7 +24,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aGuias" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" text="   Guías       " textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#aGuias" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="   Guías       " textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
@@ -36,7 +36,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aCamiones" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" text="   Camiones" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#aCamiones" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="   Camiones" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
@@ -48,7 +48,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aCuentas" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" text="   Cuentas  " textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#aCuentas" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="   Cuentas  " textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
@@ -60,7 +60,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aLogin" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" text="    Salir       " textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#aLogin" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="    Salir       " textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="47.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                      <image>
