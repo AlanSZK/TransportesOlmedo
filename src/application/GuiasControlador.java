@@ -300,18 +300,13 @@ public class GuiasControlador implements Initializable {
 	{
 		ObservableList<guia> listaGuias = FXCollections.observableArrayList();
 		
-		DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyy");
-		
-		String fecha = fechaInput.getValue().format(formatoFecha);
+		DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("d/MM/yyy");
 		
 		
-		if(fecha.trim().isEmpty())
+		try
 		{
-			tablaGuias.setItems(guias);
-	
-		}
-		else
-		{
+			String fecha = fechaInput.getValue().format(formatoFecha);
+			
 			for(guia g : guias)
 			{
 				if(g.getFecha().equals(fecha))
@@ -320,9 +315,38 @@ public class GuiasControlador implements Initializable {
 				}
 			}
 			tablaGuias.setItems(listaGuias);
-			
-			
 		}
+		catch (Exception exception) {
+			tablaGuias.setItems(guias);
+		
+		}
+		
+		/*
+		if(!fechaInput.getValue().equals(null))
+		{
+			String fecha = fechaInput.getValue().format(formatoFecha);
+			
+			for(guia g : guias)
+			{
+				if(g.getFecha().equals(fecha))
+				{
+					listaGuias.add(g);
+				}
+			}
+			tablaGuias.setItems(listaGuias);
+				
+				
+		
+		}
+		else
+		{
+			tablaGuias.setItems(guias);
+		}
+		
+		*/	
+		
+		
+		
 		
 		
 	}
