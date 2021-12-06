@@ -147,6 +147,7 @@ public class ClientesControlador implements Initializable{
 	{
 		try {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarCliente.fxml")));
+			detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(detalle);
 			stage.setTitle("Transportes Olmedo : Agregar Cliente");
@@ -176,6 +177,7 @@ public class ClientesControlador implements Initializable{
 				loader.setController(ventana);
 				
 				Scene detalle = new Scene(root);
+				detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);

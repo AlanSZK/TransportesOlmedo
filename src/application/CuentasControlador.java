@@ -224,6 +224,7 @@ public class CuentasControlador implements Initializable {
 	{
 		try {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarChofer.fxml")));
+			detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(detalle);
 			stage.setTitle("Transportes Olmedo : Agregar Chofer");
@@ -254,6 +255,7 @@ public class CuentasControlador implements Initializable {
 				loader.setController(ventana);
 				
 				Scene detalle = new Scene(root);
+				detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);
@@ -307,6 +309,7 @@ public class CuentasControlador implements Initializable {
 	{
 		try {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("DetalleChoferes.fxml")));
+			
 			Stage stage = new Stage();
 			stage.setScene(detalle);
 			stage.setTitle("Transportes Olmedo : Historial Chofer");
@@ -335,6 +338,7 @@ public class CuentasControlador implements Initializable {
 				loader.setController(ventana);
 				
 				Scene detalle = new Scene(root);
+				detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);
@@ -362,6 +366,7 @@ public class CuentasControlador implements Initializable {
 	{
 		try {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarAdministrador.fxml")));
+			detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(detalle);
 			stage.setTitle("Transportes Olmedo : Agregar administrador");

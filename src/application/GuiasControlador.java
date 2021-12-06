@@ -221,6 +221,7 @@ public class GuiasControlador implements Initializable {
 				loader.setController(ventana);
 				
 				Scene detalle = new Scene(root);
+				detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);
