@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="795.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DetalleGuiasControlador">
+<AnchorPane prefHeight="795.0" prefWidth="704.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DetalleGuiasControlador">
    <children>
       <ImageView fx:id="imagenConfirmacion" fitHeight="485.0" fitWidth="404.0" layoutX="38.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -18,21 +18,60 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label fx:id="fechaEntregaLbl" layoutX="138.0" layoutY="597.0" />
-      <Label fx:id="horaEntregaLbl" layoutX="138.0" layoutY="634.0" />
-      <Button layoutX="321.0" layoutY="707.0" mnemonicParsing="false" onAction="#volver" text="Volver" />
+      <Label fx:id="fechaEntregaLbl" layoutX="138.0" layoutY="597.0">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="horaEntregaLbl" layoutX="138.0" layoutY="634.0">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Button layoutX="321.0" layoutY="707.0" mnemonicParsing="false" onAction="#volver" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Volver" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font></Button>
       <VBox layoutX="576.0" layoutY="99.0" prefHeight="390.0" prefWidth="105.0" spacing="20.0">
          <children>
-            <Label fx:id="nGuiaLbl" prefHeight="21.0" prefWidth="253.0" />
-            <Label fx:id="camionLbl" prefHeight="21.0" />
-            <Label fx:id="choferLbl" />
-            <Label fx:id="direccionLbl" />
-            <Label fx:id="comunaLbl" />
-            <Label fx:id="regionLbl" />
-            <Label fx:id="fechaLbl" />
-            <Label fx:id="rutClienteLbl" />
-            <Label fx:id="nombreClienteLbl" />
-            <Label fx:id="contactoClienteLbl" />
+            <Label fx:id="nGuiaLbl" prefHeight="21.0" prefWidth="253.0">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="camionLbl" prefHeight="21.0">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="choferLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="direccionLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="comunaLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="regionLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="fechaLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="rutClienteLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="nombreClienteLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="contactoClienteLbl">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
          </children>
       </VBox>
       <VBox layoutX="442.0" layoutY="99.0" prefHeight="390.0" prefWidth="127.0" spacing="20.0">

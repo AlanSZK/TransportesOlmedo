@@ -9,8 +9,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="778.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GuiasControlador">
+<AnchorPane prefHeight="778.0" prefWidth="1093.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GuiasControlador">
    <children>
       <TableView fx:id="tablaGuias" layoutX="50.0" layoutY="106.0" prefHeight="564.0" prefWidth="981.0">
         <columns>
@@ -22,13 +23,25 @@
             <TableColumn fx:id="estadoCol" prefWidth="157.0" text="Estado" />
         </columns>
       </TableView>
-      <Button layoutX="135.0" layoutY="711.0" mnemonicParsing="false" onAction="#volver" text="Volver" />
-      <Button layoutX="483.0" layoutY="711.0" mnemonicParsing="false" onAction="#verDetalle" text="Ver detalle" />
+      <Button layoutX="135.0" layoutY="711.0" mnemonicParsing="false" onAction="#volver" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Volver" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="483.0" layoutY="711.0" mnemonicParsing="false" onAction="#verDetalle" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Ver detalle" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font></Button>
       <DatePicker fx:id="fechaInput" layoutX="724.0" layoutY="55.0" onAction="#mostrarGuiasPorFecha" prefHeight="31.0" prefWidth="240.0" />
-      <Label layoutX="601.0" layoutY="60.0" text="Buscar por fecha" />
-      <Label layoutX="50.0" layoutY="60.0" text="Buscar por numero de guia/factura" />
-      <TextField fx:id="idInput" layoutX="283.0" layoutY="55.0" onAction="#mostrarGuiasPorId" prefHeight="31.0" prefWidth="218.0" />
-      <Button layoutX="508.0" layoutY="55.0" mnemonicParsing="false" onAction="#mostrarGuiasPorId">
+      <Label layoutX="590.0" layoutY="62.0" text="Buscar por fecha">
+         <font>
+            <Font name="SansSerif Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="39.0" layoutY="62.0" text="Buscar por numero de guia/factura">
+         <font>
+            <Font name="SansSerif Bold" size="15.0" />
+         </font></Label>
+      <TextField fx:id="idInput" layoutX="298.0" layoutY="55.0" onAction="#mostrarGuiasPorId" prefHeight="31.0" prefWidth="218.0" />
+      <Button layoutX="526.0" layoutY="55.0" mnemonicParsing="false" onAction="#mostrarGuiasPorId">
          <graphic>
             <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -158,6 +158,7 @@ public class CamionesControlador implements Initializable {
 	{
 		try {
 			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarCamiones.fxml")));
+			detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(detalle);
 			stage.setTitle("Transportes Olmedo : Agregar Camiones");
@@ -193,6 +194,7 @@ public class CamionesControlador implements Initializable {
                 loader.setController(ventana);
 
                 Scene detalle = new Scene(root);
+                detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
                 Stage stage = new Stage();
 
                 stage.setScene(detalle);
