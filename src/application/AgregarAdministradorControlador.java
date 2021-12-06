@@ -4,7 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Optional;
+
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.WriteResult;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +26,54 @@ public class AgregarAdministradorControlador {
 	@FXML private TextField nombreAdministrador=new TextField();
 	@FXML private TextField telefonoAdministrador=new TextField();
 	
+	//Firebase
+	public void confirmar(ActionEvent e)
+	{
+		
+		
+		Optional<ButtonType> confirmacion = FUNCIONES.dialogoConfirmacion("¿Está seguro que quiere añadir al chofer?");
+		
+		if (confirmacion.get() == ButtonType.OK)
+		{
+			
+			TextField[] campos = {
+				nombreUsuario,
+				rutUsuario,
+				contrasenaUsuario,
+				nombreAdministrador,
+				telefonoAdministrador
+			};
+			
+			if(FUNCIONES.camposVacios(campos))
+			{
+				FUNCIONES.dialogoAlerta("Error", "Existen campos vacíos");
+			}
+			else
+			{
+			
+				HashMap<String, Object> datos = new HashMap<>();
+				datos.put("idCuenta", (CuentasControlador.contadorChoferes+CuentasControlador.contadorAdmins+1));
+				datos.put("usuario", nombreUsuario.getText());
+				datos.put("rut", rutUsuario.getText());
+				datos.put("contrasena", contrasenaUsuario.getText());
+				datos.put("nombre", nombreAdministrador.getText());
+				datos.put("telefono", telefonoAdministrador.getText());
+				
+				String uuid = java.util.UUID.randomUUID().toString();
+				
+				
+				DocumentReference ref = ConectorFirebase.bdd.collection("administradores").document(uuid);
+				ApiFuture<WriteResult> resultado = ref.set(datos);
+				
+				
+				
+				cerrar(e);
+			}
+		
+		}
+	}
 	
+	/*
 	@SuppressWarnings("resource")
 	public void confirmar (ActionEvent e)
 	{
@@ -117,7 +169,7 @@ public class AgregarAdministradorControlador {
 		}
 		
 	}
-	
+	*/
 	public void cerrar (ActionEvent e)
 	{
 		Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();

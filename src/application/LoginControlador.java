@@ -52,6 +52,8 @@ public class LoginControlador {
 				
 				for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
 				{
+					
+					
 					if(doc.get("contrasena").equals(contrasena.getText()) && (doc.get("rut").equals(rut.getText())||doc.get("usuario").equals(rut.getText())))
 					{
 			
