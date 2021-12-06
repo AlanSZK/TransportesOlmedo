@@ -31,7 +31,7 @@ public class AgregarAdministradorControlador {
 	{
 		
 		
-		Optional<ButtonType> confirmacion = FUNCIONES.dialogoConfirmacion("¿Está seguro que quiere añadir al chofer?");
+		Optional<ButtonType> confirmacion = FUNCIONES.dialogoConfirmacion("¿Está seguro que quiere añadir al administrador?");
 		
 		if (confirmacion.get() == ButtonType.OK)
 		{

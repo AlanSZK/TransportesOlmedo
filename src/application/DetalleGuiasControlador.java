@@ -35,7 +35,6 @@ public class DetalleGuiasControlador {
 	{
 		fechaEntregaLbl.setText(fecha);
 		horaEntregaLbl.setText(hora);
-		imagenConfirmacion.setImage(new Image(url));
 		nGuiaLbl.setText(id);
 		camionLbl.setText(camion);
 		choferLbl.setText(chofer);
@@ -46,7 +45,10 @@ public class DetalleGuiasControlador {
 		rutClienteLbl.setText(rut);
 		nombreClienteLbl.setText(cliente);
 		contactoClienteLbl.setText(contacto);
-			
+		if(!url.isEmpty())
+			imagenConfirmacion.setImage(new Image(url));
+		
+		
 	}
 	
 	

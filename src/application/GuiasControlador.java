@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -180,6 +182,22 @@ public class GuiasControlador implements Initializable {
 		
 		for (DocumentSnapshot doc : snap.get().getDocuments())
 		{
+			String imagen,fechaEntrega,horaEntrega;
+			
+			
+			if(doc.get("estado").equals("Entregado"))
+			{
+				imagen = doc.get("imagen").toString();
+				fechaEntrega = doc.get("fechaEntrega").toString();
+				horaEntrega = doc.get("horaEntrega").toString();
+			}
+			else
+			{
+				imagen="";
+				fechaEntrega = "No disponible";
+				horaEntrega = "No disponible";
+			}
+			
 			guia g = new guia(
 					doc.get("chofer").toString(), 
 					doc.get("comuna").toString(), 
@@ -192,10 +210,11 @@ public class GuiasControlador implements Initializable {
 					doc.get("camion").toString(), 
 					doc.get("region").toString(), 
 					doc.get("rut").toString(),
-					doc.get("imagen").toString(),
-					doc.get("fechaEntrega").toString(),
-					doc.get("horaEntrega").toString()
+					imagen,
+					fechaEntrega,
+					horaEntrega
 			);
+			
 			guias.add(g);	
 		
 		}
