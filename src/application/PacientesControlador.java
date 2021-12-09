@@ -342,7 +342,7 @@ public class PacientesControlador implements Initializable{
 	public void buscarPor (ActionEvent e)
 	{
 		
-		String input = buscarInput.getText();
+		String input = buscarInput.getText().toUpperCase();
 		
 		if(input.trim().isEmpty())
 		{
