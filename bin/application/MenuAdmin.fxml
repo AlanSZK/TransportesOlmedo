@@ -12,7 +12,7 @@
    <children>
       <VBox alignment="TOP_CENTER" layoutX="240.0" layoutY="125.0" prefHeight="506.0" prefWidth="530.0" spacing="30.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#aClientes" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="   Clientes   " textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#aPacientes" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="Pacientes" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="28.0" />
                </font>

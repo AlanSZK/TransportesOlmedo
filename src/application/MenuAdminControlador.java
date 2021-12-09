@@ -7,12 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 public class MenuAdminControlador {
-	public void aClientes (ActionEvent e)
+	public void aPacientes (ActionEvent e)
 	{
 		try {
-			Scene vistaClientes = new Scene(FXMLLoader.load(getClass().getResource("Clientes.fxml")));
+			Scene vistaClientes = new Scene(FXMLLoader.load(getClass().getResource("Pacientes.fxml")));
 			vistaClientes.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			FUNCIONES.cambiarEscena(vistaClientes, e,"Transportes Olmedo : Clientes");
+			FUNCIONES.cambiarEscena(vistaClientes, e,"Transportes Olmedo : Pacientes");
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
