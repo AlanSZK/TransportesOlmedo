@@ -2,13 +2,8 @@ package application;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
@@ -16,7 +11,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.poi.ooxml.POIXMLException;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -27,14 +21,9 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
-import com.google.cloud.firestore.WriteResult;
-
-import application.CuentasControlador.cuenta;
-import application.GuiasControlador.guia;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,6 +32,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -166,6 +156,7 @@ public class PacientesControlador implements Initializable{
 			}
 			
 			tablaPacientes.setItems(listaPacientes);
+			tablaPacientes.refresh();
 		}
 		
 	}
@@ -235,32 +226,36 @@ public class PacientesControlador implements Initializable{
 	}
 	public void borrarPaciente (ActionEvent e)
 	{
-		paciente p = tablaPacientes.getSelectionModel().getSelectedItem();
 		
-		if(p != null)
+		ObservableList<paciente> pacientes = tablaPacientes.getSelectionModel().getSelectedItems();
+		
+		if(!pacientes.isEmpty())
 		{
-			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar al cliente seleccionado?");
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar a los pacientes seleccionados?");
 			
 			if(opcion.get()==ButtonType.OK)
 			{
 				
-				ConectorFirebase.bdd.collection("pacientes").document(p.getIdDocumento()).delete();
+				for(paciente p : pacientes)
+				{
 				
+					ConectorFirebase.bdd.collection("pacientes").document(p.getIdDocumento()).delete();
+					
+				}
 				try {
 					cargarPacientes();
 				} catch (InterruptedException | ExecutionException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-																														
-			}
 				
-			else
-			{
-				FUNCIONES.dialogo("Información", "No hay ningún cliente seleccionado");
 			}
-			
 		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún paciente seleccionado");
+		}
+		
 	}
 	
 	
@@ -457,6 +452,8 @@ public class PacientesControlador implements Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		tablaPacientes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 		opcionBuscar.setItems(FXCollections.observableArrayList("Código cliente","Código paciente","Nombre cliente","Nombre paciente","Comuna","Dirección","Contacto"));
 		

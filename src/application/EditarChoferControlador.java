@@ -1,18 +1,12 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
+
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
-import com.google.cloud.firestore.WriteResult;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

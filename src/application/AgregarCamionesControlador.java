@@ -1,14 +1,12 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 import java.util.HashMap;
 import java.util.Optional;
 
-import com.google.api.core.ApiFuture;
+
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.WriteResult;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,10 +43,10 @@ public class AgregarCamionesControlador {
                 datos.put("patente", patente.getText());
                 datos.put("marca", marca.getText());
 
-                String uuid = java.util.UUID.randomUUID().toString();
+                //String uuid = java.util.UUID.randomUUID().toString();
 
-                DocumentReference ref = ConectorFirebase.bdd.collection("camiones").document(uuid);
-                ApiFuture<WriteResult> resultado = ref.set(datos);
+                DocumentReference ref = ConectorFirebase.bdd.collection("camiones").document(patente.getText());
+                ref.set(datos);
 
                 cerrar(e);
             }

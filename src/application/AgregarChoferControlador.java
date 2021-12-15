@@ -4,9 +4,8 @@ package application;
 import java.util.HashMap;
 import java.util.Optional;
 
-import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.WriteResult;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,7 +60,7 @@ public class AgregarChoferControlador {
 				
 				
 				DocumentReference ref = ConectorFirebase.bdd.collection("choferes").document(uuid);
-				ApiFuture<WriteResult> resultado = ref.set(datos);
+				ref.set(datos);
 				
 				
 				

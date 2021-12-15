@@ -11,8 +11,8 @@ public class ConectorBDD {
 	public Connection conectar()
 	{
 		String nombreBDD="mydb";
-		String nombreUsuario="root";
-		String contrasena="cris195614253";
+		String nombreUsuario="";
+		String contrasena="";
 
 		
 		try {

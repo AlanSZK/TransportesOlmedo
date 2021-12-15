@@ -1,8 +1,6 @@
 package application;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
@@ -10,15 +8,12 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 
-import application.CamionesControlador.camion;
-import application.CuentasControlador.cuenta;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,22 +26,20 @@ public class DetalleCamionesControlador  {
 	{
 		private String fechaInicio;
 		private String fechaFinal;
-		private String rutChofer;
-		private String odometro;
+		private String horaEntrega;
+		private String odometroInicial;
+		private String odometroFinal;
 		private String detalle;
-		
-		
-		
-		public historial(String fechaInicio, String fechaFinal, String rutChofer, String odometro, String detalle) {
+		public historial(String fechaInicio, String fechaFinal, String horaEntrega, String odometroInicial, String odometroFinal,
+				String detalle) {
 			super();
 			this.fechaInicio = fechaInicio;
 			this.fechaFinal = fechaFinal;
-			this.rutChofer = rutChofer;
-			this.odometro = odometro;
+			this.horaEntrega = horaEntrega;
+			this.odometroInicial = odometroInicial;
+			this.odometroFinal = odometroFinal;
 			this.detalle = detalle;
 		}
-		
-		
 		public String getFechaInicio() {
 			return fechaInicio;
 		}
@@ -59,17 +52,17 @@ public class DetalleCamionesControlador  {
 		public void setFechaFinal(String fechaFinal) {
 			this.fechaFinal = fechaFinal;
 		}
-		public String getRutChofer() {
-			return rutChofer;
+		public String getOdometroInicial() {
+			return odometroInicial;
 		}
-		public void setRutChofer(String rutChofer) {
-			this.rutChofer = rutChofer;
+		public void setOdometroInicial(String odometroInicial) {
+			this.odometroInicial = odometroInicial;
 		}
-		public String getOdometro() {
-			return odometro;
+		public String getOdometroFinal() {
+			return odometroFinal;
 		}
-		public void setOdometro(String odometro) {
-			this.odometro = odometro;
+		public void setOdometroFinal(String odometroFinal) {
+			this.odometroFinal = odometroFinal;
 		}
 		public String getDetalle() {
 			return detalle;
@@ -77,6 +70,19 @@ public class DetalleCamionesControlador  {
 		public void setDetalle(String detalle) {
 			this.detalle = detalle;
 		}
+		public String getHoraEntrega() {
+			return horaEntrega;
+		}
+		public void setHoraEntrega(String horaEntrega) {
+			this.horaEntrega = horaEntrega;
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -85,8 +91,9 @@ public class DetalleCamionesControlador  {
 	@FXML private TableView<historial> tablaHistorial = new TableView<>();
 	@FXML private TableColumn<historial, String> fechaInicioCol = new TableColumn<>();
 	@FXML private TableColumn<historial, String> fechaFinalCol = new TableColumn<>();
-	@FXML private TableColumn<historial, String> rutChoferCol = new TableColumn<>();
-	@FXML private TableColumn<historial, String> odometroCol = new TableColumn<>();
+	@FXML private TableColumn<historial, String> horaEntregaCol = new TableColumn<>();
+	@FXML private TableColumn<historial, String> odometroInicialCol = new TableColumn<>();
+	@FXML private TableColumn<historial, String> odometroFinalCol = new TableColumn<>();
 	@FXML private TableColumn<historial, String> detalleCol = new TableColumn<>();
 	
 	ObservableList<historial> lista = FXCollections.observableArrayList();
@@ -97,16 +104,18 @@ public class DetalleCamionesControlador  {
 	String docId;
 
 	
-	@FXML private Label rutasTotales = new Label();
-	
+	@FXML private TextField rutasTotales;
 	
 	public void cargarHistorial() throws InterruptedException, ExecutionException
 	{
 		fechaInicioCol.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
 		fechaFinalCol.setCellValueFactory(new PropertyValueFactory<>("fechaFinal"));
-		rutChoferCol.setCellValueFactory(new PropertyValueFactory<>("rutChofer"));
-		odometroCol.setCellValueFactory(new PropertyValueFactory<>("odometro"));
+		horaEntregaCol.setCellValueFactory(new PropertyValueFactory<>("horaEntrega"));
+		odometroInicialCol.setCellValueFactory(new PropertyValueFactory<>("odometroInicial"));
+		odometroFinalCol.setCellValueFactory(new PropertyValueFactory<>("odometroFinal"));
 		detalleCol.setCellValueFactory(new PropertyValueFactory<>("detalle"));
+		
+		int rutasCompletadas=0;
 		
 		Iterable<CollectionReference> colecciones = ConectorFirebase.bdd.collection("camiones").document(docId).listCollections();
 
@@ -122,47 +131,52 @@ public class DetalleCamionesControlador  {
 		for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
 		{
 			
-			historial h = new historial(
-					doc.get("fechaInicio").toString(), 
-					doc.get("fechaFinal").toString(), 
-					doc.get("rutChofer").toString(), 
-					doc.get("odometro").toString(), 
-					doc.get("detalle").toString()
+			try {
+				historial h = new historial(
+					doc.get("fecha inicial").toString(), 
+					doc.get("fecha final").toString(),
+					doc.get("Hora de entrega").toString(),
+					doc.get("odometro inicial").toString(), 
+					doc.get("odometro final").toString(), 
+					doc.get("detalles ruta").toString()
 					
 				);
+				
+				lista.add(h);
+				rutasCompletadas++;
+				
+			}catch(Exception e1) {
+				historial h = new historial(
+						doc.get("fecha inicial").toString(), 
+						"No disponible",
+						"No disponible",
+						doc.get("odometro inicial").toString(), 
+						"No disponible", 
+						"No disponible"
+				);
+				lista.add(h);
+			}
+			
 																				
-			lista.add(h);
-			break;
+			
 			
 		}
 			
 		tablaHistorial.setItems(lista);
+		rutasTotales.setText(String.valueOf(rutasCompletadas));
 			
 		
 	}
 
 	
-	
-	
-	/*
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		fechaInicioCol.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
-		fechaFinalCol.setCellValueFactory(new PropertyValueFactory<>("fechaFinal"));
-		rutChoferCol.setCellValueFactory(new PropertyValueFactory<>("rutChofer"));
-		odometroCol.setCellValueFactory(new PropertyValueFactory<>("odometro"));
-		detalleCol.setCellValueFactory(new PropertyValueFactory<>("detalle"));
-			
-		try {
-			cargarHistorial();
-		} catch (InterruptedException | ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void cerrar (ActionEvent e)
+	{
+		Stage stage = (Stage)((Node)e.getTarget()).getScene().getWindow();
+		stage.close();
 		
 	}
-	*/
+	
+	
 	
 	public void inicializarVariables(String pat, String mar, String doc)
 	{

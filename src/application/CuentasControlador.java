@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -175,6 +176,7 @@ public class CuentasControlador implements Initializable {
 			}
 			
 			tablaAdministradores.setItems(listaAdministradores);
+			tablaAdministradores.refresh();
 			
 			
 		} catch (InterruptedException | ExecutionException e) {
@@ -214,6 +216,7 @@ public class CuentasControlador implements Initializable {
 		}
 		
 		tablaChoferes.setItems(listaChoferes);
+		tablaChoferes.refresh();
 		
 	}
 	
@@ -231,6 +234,7 @@ public class CuentasControlador implements Initializable {
 			stage.showAndWait();
 			
 			cargarChoferes();
+			
 			
 			
 		} catch (IOException e1) {
@@ -265,6 +269,7 @@ public class CuentasControlador implements Initializable {
 				cargarChoferes();
 				
 				
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -282,27 +287,32 @@ public class CuentasControlador implements Initializable {
 	{
 		
 
+		ObservableList<cuenta> choferes = tablaChoferes.getSelectionModel().getSelectedItems();
 		
-		cuenta c = tablaChoferes.getSelectionModel().getSelectedItem();
-		
-		if(c != null)
+		if(!choferes.isEmpty())
 		{
-			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar las cuentas seleccionadas?");
+			
+			
 			
 			if(opcion.get()==ButtonType.OK)
 			{
+				for(cuenta c : choferes)
+				{
+					ConectorFirebase.bdd.collection("choferes").document(c.getIdDocumento()).delete();					
+				}	
 				
-				ConectorFirebase.bdd.collection("choferes").document(c.getIdDocumento()).delete();
 				cargarChoferes();
-																														
-			}
 				
-			else
-			{
-				FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
-			}
+			
+			}		
 			
 		}
+		else
+		{
+			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
+		}
+		
 	}
 		
 	public void verHistorial (ActionEvent e)
@@ -344,8 +354,9 @@ public class CuentasControlador implements Initializable {
 				stage.setScene(detalle);
 				stage.setTitle("Transportes Olmedo : Editar Administrador");
 				stage.showAndWait();
-				
+			
 				cargarAdministradores();
+				
 				
 				
 			} catch (IOException e1) {
@@ -374,6 +385,7 @@ public class CuentasControlador implements Initializable {
 			
 			cargarAdministradores();
 			
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -381,38 +393,51 @@ public class CuentasControlador implements Initializable {
 	}
 	public void borrarAdministrador (ActionEvent e)
 	{
-		cuenta c = tablaAdministradores.getSelectionModel().getSelectedItem();
 		
-		if(c != null && c.getIdCuenta() != 1)
+		
+		ObservableList<cuenta> admins = tablaAdministradores.getSelectionModel().getSelectedItems();
+		
+		if(!admins.isEmpty())
 		{
-			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
+			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar las cuentas seleccionadas?");
+			
+			
 			
 			if(opcion.get()==ButtonType.OK)
 			{
-						
-				ConectorFirebase.bdd.collection("administradores").document(c.getIdDocumento()).delete();
-			}
-													
+				for(cuenta c : admins)
+				{
+					if(c.getIdCuenta()==1)
+					{
+						FUNCIONES.dialogo("Información", "La cuenta seleccionada principal del administrador no puede ser borrada");
+					}
+					else
+					{
+						ConectorFirebase.bdd.collection("administradores").document(c.getIdDocumento()).delete();
+					}
+										
+				}	
+			
+				cargarAdministradores();
+				
+			
+			}		
+			
 		}
-		else if(c.getIdCuenta()==1)
-		{
-			FUNCIONES.dialogo("Información", "La cuenta seleccionada no puede ser borrada");
-		}
-		
 		else
 		{
 			FUNCIONES.dialogo("Información", "No hay ningún administrador seleccionado");
 		}
-		
-		
-		
-		cargarAdministradores();
+	
 	}
 	
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		tablaChoferes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		tablaAdministradores.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 		rutAdminCol.setCellValueFactory(new PropertyValueFactory<>("rut"));
 		nombreAdminCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));

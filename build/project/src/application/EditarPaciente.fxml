@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="675.0" prefWidth="649.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditarPacienteControlador">
+   <children>
+      <Button layoutX="363.0" layoutY="599.0" mnemonicParsing="false" onAction="#confirmar" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Confirmar" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="187.0" layoutY="599.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font></Button>
+      <VBox layoutX="187.0" layoutY="58.0" prefHeight="394.0" prefWidth="274.0" spacing="20.0">
+         <children>
+            <VBox prefHeight="92.0" prefWidth="274.0" />
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="72.0" prefWidth="274.0">
+               <children>
+                  <Label text="Id Cliente">
+                     <font>
+                        <Font name="SansSerif Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idCliente" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="218.0" prefHeight="66.0" prefWidth="274.0">
+               <children>
+                  <Label text="Nombre Cliente">
+                     <font>
+                        <Font name="SansSerif Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nombreCliente" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="110.0" prefHeight="76.0" prefWidth="274.0">
+               <children>
+                  <Label text="Id Paciente">
+                     <font>
+                        <Font name="SansSerif Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idPaciente" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="166.0" prefHeight="54.0" prefWidth="274.0">
+               <children>
+                  <Label text="Nombre Paciente">
+                     <font>
+                        <Font name="SansSerif Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nombrePaciente" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="144.0" prefHeight="75.0" prefWidth="274.0">
+               <children>
+                  <Label text="Comuna ">
+                     <font>
+                        <Font name="SansSerif Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="comuna" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="352.0" prefHeight="75.0" prefWidth="274.0">
+               <children>
+                  <Label text="Dirección">
+                     <font>
+                        <Font name="SansSerif Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="direccion" />
+               </children>
+            </VBox>
+            <VBox prefHeight="75.0" prefWidth="274.0">
+               <children>
+                  <Label text="Contacto">
+                     <font>
+                        <Font name="SansSerif Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="contacto" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

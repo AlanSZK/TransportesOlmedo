@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="765.0" prefWidth="1150.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CuentasControlador">
+<AnchorPane prefHeight="765.0" prefWidth="1150.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CuentasControlador">
    <children>
       <TableView fx:id="tablaChoferes" layoutX="78.0" layoutY="43.0" prefHeight="294.0" prefWidth="760.0">
         <columns>
@@ -24,7 +24,7 @@
             <TableColumn fx:id="telAdminCol" prefWidth="208.0" text="Teléfono" />
         </columns>
       </TableView>
-      <Label layoutX="78.0" layoutY="14.0" text="Choféres">
+      <Label layoutX="78.0" layoutY="14.0" text="Choferes">
          <font>
             <Font name="SansSerif Bold Italic" size="20.0" />
          </font>
@@ -34,17 +34,13 @@
             <Font name="SansSerif Bold Italic" size="20.0" />
          </font>
       </Label>
-      <VBox layoutX="917.0" layoutY="44.0" prefHeight="310.0" prefWidth="130.0" spacing="30.0">
+      <VBox layoutX="917.0" layoutY="73.0" prefHeight="310.0" prefWidth="130.0" spacing="30.0">
          <children>
             <Button mnemonicParsing="false" onAction="#agregarChofer" prefHeight="49.0" prefWidth="145.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Ingresar" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
                </font></Button>
             <Button mnemonicParsing="false" onAction="#editarChofer" prefHeight="49.0" prefWidth="145.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Editar" textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Bold" size="12.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" onAction="#verHistorial" prefHeight="49.0" prefWidth="145.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Ver historial" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
                </font></Button>

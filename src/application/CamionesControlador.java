@@ -22,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -96,6 +97,7 @@ public class CamionesControlador implements Initializable {
             listaCamiones.add(c);
         }
         tablaCamion.setItems(listaCamiones);
+        tablaCamion.refresh();
     }
 	
 	
@@ -217,31 +219,39 @@ public class CamionesControlador implements Initializable {
 	public void borrarCamion (ActionEvent e) throws NumberFormatException, InterruptedException, ExecutionException, IOException
     {
 
-
-
-        camion c = tablaCamion.getSelectionModel().getSelectedItem();
-
-        if(c != null)
+        ObservableList<camion> camiones = tablaCamion.getSelectionModel().getSelectedItems();
+        
+        if(!camiones.isEmpty())
         {
-            Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar el camión seleccionado?");
-
-            if(opcion.get()==ButtonType.OK)
+        	Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar los camiones seleccionados?");
+        	
+        	if(opcion.get()==ButtonType.OK)
             {
-
-                ConectorFirebase.bdd.collection("camiones").document(c.getIdDocumento()).delete();
-                cargarCamiones();
-            }
-            else
-            {
-                FUNCIONES.dialogo("Información", "No hay ningún camión seleccionado");
-            }
+        		for(camion c : camiones)
+        		{
+           		 	ConectorFirebase.bdd.collection("camiones").document(c.getIdDocumento()).delete();   
+           	 	}
+                
+               cargarCamiones();
+            }      	
         }
+        else
+        {
+            FUNCIONES.dialogo("Información", "No hay ningún camión seleccionado");
+        }
+        
+       
     }
+    
+		
+    
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXpat.setCellValueFactory(new PropertyValueFactory<>("patente"));
 		FXmar.setCellValueFactory(new PropertyValueFactory<>("marca"));
+		
+		tablaCamion.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
 		try {
 			cargarCamiones();

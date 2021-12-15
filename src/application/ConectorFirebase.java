@@ -8,7 +8,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 public class ConectorFirebase {
 	
@@ -22,6 +22,7 @@ public class ConectorFirebase {
 		FileInputStream serviceAccount =
 		new FileInputStream("firebase/app-olmedo-firebase-adminsdk-elztd-eb56c37ff5.json");
 	
+		@SuppressWarnings("deprecation")
 		FirebaseOptions options = new FirebaseOptions.Builder()
 		  .setCredentials(GoogleCredentials.fromStream(serviceAccount))
 		  .setDatabaseUrl("https://app-olmedo-default-rtdb.firebaseio.com")

@@ -1,16 +1,13 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.google.api.core.ApiFuture;
+
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.WriteResult;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +43,7 @@ public class AgregarPacienteControlador {
 				datos.put("nombreCliente", nombreCliente.getText());
 				datos.put("idPaciente", idPaciente.getText());
 				datos.put("nombrePaciente", nombrePaciente.getText());
-				datos.put("direccion", direccion.getText());
+				datos.put("direccionPaciente", direccion.getText());
 				datos.put("comuna", comuna.getText());
 				datos.put("contacto", contacto.getText());
 				

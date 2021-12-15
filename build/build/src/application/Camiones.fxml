@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="617.0" prefWidth="938.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CamionesControlador">
+   <children>
+      <TableView fx:id="tablaCamion" layoutX="71.0" layoutY="81.0" prefHeight="359.0" prefWidth="620.0">
+        <columns>
+          <TableColumn fx:id="FXpat" prefWidth="148.0" text="Patente" />
+          <TableColumn fx:id="FXmar" prefWidth="471.0" text="Marca" />
+        </columns>
+      </TableView>
+      <VBox layoutX="739.0" layoutY="127.0" prefHeight="293.0" prefWidth="130.0" spacing="30.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#agregarCamion" prefHeight="49.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="Ingresar" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#verHistorial" prefHeight="49.0" prefWidth="145.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Ver Historial" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#editarCamion" prefHeight="49.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="Editar" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#borrarCamion" prefHeight="49.0" prefWidth="145.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Borrar" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font></Button>
+         </children>
+      </VBox>
+      <Button layoutX="381.0" layoutY="521.0" mnemonicParsing="false" onAction="#volver" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #517EEC; -fx-background-radius: 15;" styleClass="btn" text="Volver" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold Italic" size="12.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

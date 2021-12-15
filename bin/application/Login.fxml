@@ -4,18 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="665.0" prefWidth="543.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginControlador">
+<AnchorPane prefHeight="665.0" prefWidth="543.0" style="-fx-background-color: #FF8000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginControlador">
    <children>
-      <ImageView fitHeight="473.0" fitWidth="505.0" layoutX="14.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/logo.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="logo" fitHeight="473.0" fitWidth="505.0" layoutX="14.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
       <Button layoutX="161.0" layoutY="537.0" mnemonicParsing="false" onAction="#verificar" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #1565c0; -fx-background-radius: 10;" styleClass="btn" text="Ingresar" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />

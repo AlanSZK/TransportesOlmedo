@@ -1,18 +1,15 @@
 package application;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
 
 import javafx.event.ActionEvent;
@@ -21,11 +18,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class LoginControlador {
+public class LoginControlador implements Initializable {
 	
 	@FXML public TextField rut;
 	@FXML public TextField contrasena;
+	@FXML private ImageView logo;
 	
 	
 	//Verificar Firebase
@@ -93,6 +93,19 @@ public class LoginControlador {
 
 	
 	
+	}
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		try {
+			logo.setImage(new Image(new FileInputStream("img/logo.png")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	
