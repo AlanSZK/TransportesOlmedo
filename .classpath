@@ -12,5 +12,14 @@
 	<classpathentry kind="lib" path="libs/firebase-admin-8.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Firebase"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre1.8.0_281/lib/ext/jfxrt.jar"/>
+	<classpathentry kind="lib" path="libs/poi-bin-4.1.2-20200217/poi-4.1.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-bin-4.1.2-20200217/ooxml-lib/xmlbeans-3.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/commons-collections4-4.4/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="libs/commons-collections4-4.4/commons-compress-1.20.jar"/>
+	<classpathentry kind="lib" path="libs/poi-bin-4.1.2-20200217/poi-examples-4.1.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-bin-4.1.2-20200217/poi-excelant-4.1.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-bin-4.1.2-20200217/poi-ooxml-4.1.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-bin-4.1.2-20200217/poi-ooxml-schemas-4.1.2.jar"/>
+	<classpathentry kind="lib" path="libs/poi-bin-4.1.2-20200217/poi-scratchpad-4.1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

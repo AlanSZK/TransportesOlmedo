@@ -12,12 +12,12 @@
    <children>
       <VBox alignment="TOP_CENTER" layoutX="240.0" layoutY="125.0" prefHeight="506.0" prefWidth="530.0" spacing="30.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#aClientes" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="   Clientes   " textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#aPacientes" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="Pacientes" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="56.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgPacientes" fitHeight="56.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/clientes.png" />
                      </image>
@@ -29,7 +29,7 @@
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="104.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgGuias" fitHeight="104.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/guias.png" />
                      </image>
@@ -41,7 +41,7 @@
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="73.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgCamiones" fitHeight="73.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/camion.png" />
                      </image>
@@ -53,7 +53,7 @@
                   <Font name="SansSerif Bold" size="28.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="64.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgCuentas" fitHeight="64.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/usuario.png" />
                      </image>
@@ -62,7 +62,7 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#aLogin" prefHeight="76.0" prefWidth="278.0" style="-fx-background-radius: 15; -fx-background-color: #517EEC;" styleClass="btn" text="    Salir       " textFill="WHITE">
                <graphic>
-                  <ImageView fitHeight="47.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgSalir" fitHeight="47.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/salir.png" />
                      </image>
