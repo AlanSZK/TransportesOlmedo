@@ -604,6 +604,7 @@
 	
 			<fx:application refId="fxApplication"/>
 			<fx:resources refid="appRes"/>
+			<fx:bundleArgument arg="icon" value="package/windows/transportesOlmedo.ico"/>
 		</fx:deploy>
 	
 	

@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="transportesOlmedo.jar" size="60127" download="eager" />
+    <jar href="transportesOlmedo.jar" size="58306" download="eager" />
     <jar href="libs\animal-sniffer-annotations-1.20.jar" size="3349" download="eager" />
     <jar href="libs\annotations-4.1.1.4.jar" size="3120" download="eager" />
     <jar href="libs\api-common-1.10.4.jar" size="49287" download="eager" />

@@ -37,6 +37,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -169,6 +170,7 @@ public class PacientesControlador implements Initializable{
 			Stage stage = new Stage();
 			stage.setScene(detalle);
 			stage.setTitle("Transportes Olmedo : Agregar Paciente");
+			stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 			stage.showAndWait();
 			
 			cargarPacientes();
@@ -202,6 +204,7 @@ public class PacientesControlador implements Initializable{
 				
 				stage.setScene(detalle);
 				stage.setTitle("Transportes Olmedo : Editar Paciente");
+				stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 				stage.showAndWait();
 				
 				
@@ -259,6 +262,7 @@ public class PacientesControlador implements Initializable{
 	}
 	
 	
+	@SuppressWarnings({ "resource", "unused" })
 	public void cargarExcel (ActionEvent e)
 	{
 		FileChooser fileChooser = new FileChooser();
@@ -269,8 +273,8 @@ public class PacientesControlador implements Initializable{
 			
 			XSSFWorkbook libroExcel = new XSSFWorkbook(excelInput);
 			XSSFSheet hoja = libroExcel.getSheetAt(0);
-			
 			String idPaciente="";
+			
 			int i=0;
 			Iterator<Row> iterador = hoja.iterator();
 			
@@ -287,9 +291,6 @@ public class PacientesControlador implements Initializable{
 					try
 					{
 						
-						//datos.put("idCliente",String.valueOf(row.getCell(0).getNumericCellValue()));
-						//datos.put("idPaciente",String.valueOf(row.getCell(2).getNumericCellValue()));
-						
 						datos.put("idCliente",format.formatCellValue(row.getCell(0)));
 						datos.put("nombreCliente",format.formatCellValue(row.getCell(1)));
 						datos.put("idPaciente",format.formatCellValue(row.getCell(2)));
@@ -298,8 +299,6 @@ public class PacientesControlador implements Initializable{
 						datos.put("direccionPaciente", row.getCell(8).toString());
 						datos.put("comuna", row.getCell(6).toString());
 						
-						
-						//String uuid = java.util.UUID.randomUUID().toString();
 						
 						
 						DocumentReference ref = ConectorFirebase.bdd.collection("pacientes").document(format.formatCellValue(row.getCell(2)));
@@ -473,50 +472,5 @@ public class PacientesControlador implements Initializable{
 		
 	}
 	
-	/*
-	public void cargarClientes ()
-	{
-		listaClientes.clear();
-		
-		Connection con = conector.conectar();
-		
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		
-		String query = "SELECT * FROM cliente INNER JOIN ubicacion ON cliente.idUbicacion=ubicacion.idUbicacion";
-		
-		try {
-			pst = con.prepareStatement(query);
-			
-			rs = pst.executeQuery();
-			
-			while (rs.next())
-			{
-				cliente c = new cliente (rs.getInt("idCliente"), rs.getInt("idUbicacion"), rs.getString("rut"), rs.getString("nombre"), rs.getString("contacto"), rs.getString("direccion"), rs.getString("comuna"), rs.getString("region"));
-				
-				listaClientes.add(c);
-			
-			}
-			
-			tablaClientes.setItems(listaClientes);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				con.close();
-				pst.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-			
-		
-	}
-	*/
 	
 }

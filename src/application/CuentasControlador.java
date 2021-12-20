@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class CuentasControlador implements Initializable {
@@ -118,7 +120,7 @@ public class CuentasControlador implements Initializable {
 	ObservableList<cuenta> listaChoferes = FXCollections.observableArrayList();
 	ObservableList<cuenta> listaAdministradores = FXCollections.observableArrayList();
 	
-	ConectorBDD conector = new ConectorBDD();
+
 	public static int contadorChoferes = 0;
 	public static int contadorAdmins= 0;
 	
@@ -230,6 +232,7 @@ public class CuentasControlador implements Initializable {
 			detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(detalle);
+			stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 			stage.setTitle("Transportes Olmedo : Agregar Chofer");
 			stage.showAndWait();
 			
@@ -263,6 +266,7 @@ public class CuentasControlador implements Initializable {
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);
+				stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 				stage.setTitle("Transportes Olmedo : Editar Chofer");
 				stage.showAndWait();
 				
@@ -322,6 +326,7 @@ public class CuentasControlador implements Initializable {
 			
 			Stage stage = new Stage();
 			stage.setScene(detalle);
+			stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 			stage.setTitle("Transportes Olmedo : Historial Chofer");
 			stage.showAndWait();
 			
@@ -353,6 +358,7 @@ public class CuentasControlador implements Initializable {
 				
 				stage.setScene(detalle);
 				stage.setTitle("Transportes Olmedo : Editar Administrador");
+				stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 				stage.showAndWait();
 			
 				cargarAdministradores();
@@ -381,6 +387,7 @@ public class CuentasControlador implements Initializable {
 			Stage stage = new Stage();
 			stage.setScene(detalle);
 			stage.setTitle("Transportes Olmedo : Agregar administrador");
+			stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 			stage.showAndWait();
 			
 			cargarAdministradores();
@@ -454,361 +461,12 @@ public class CuentasControlador implements Initializable {
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		/*
-		try {
-			cargarChoferesFirebase();
-		} catch (InterruptedException | ExecutionException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
+		}		
 		
 		
 	}
 	
 	
-	
-	//CARGAR TABLAS MY SQL
-	
-	
-	/*
-	public void cargarChoferes()
-	{
-		listaChoferes.clear();
-		
-		String query = "SELECT * FROM cuenta INNER JOIN chofer ON "
-				+ "chofer.id_cuenta=cuenta.id_cuenta";
-		
-		Connection con = conector.conectar();
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		
-		try {
-			pst = con.prepareStatement(query);
-			rs = pst.executeQuery();
-			
-			while(rs.next())
-			{
-				cuenta c = new cuenta(rs.getInt("id_cuenta"), rs.getString("nombreUsuario"), rs.getString("contrasena"), rs.getString("rut"), rs.getString("nombre"),rs.getString("telefono") );
-				listaChoferes.add(c);
-			}
-					
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			try {
-				con.close();
-				pst.close();
-				rs.close();
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
-		tablaChoferes.setItems(listaChoferes);	
-		
-	}
-	public void cargarAdministradores()
-	{
-		listaAdministradores.clear();
-		
-		String query = "SELECT * FROM cuenta INNER JOIN administrador ON "
-				+ "administrador.id_cuenta=cuenta.id_cuenta";
-		Connection con = conector.conectar();
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		
-		try {
-			pst = con.prepareStatement(query);
-			rs = pst.executeQuery();
-			
-			while(rs.next())
-			{
-				cuenta c = new cuenta(rs.getInt("id_cuenta"), rs.getString("nombreUsuario"), rs.getString("contrasena"), rs.getString("rut"), rs.getString("nombre"),rs.getString("telefono") );
-				listaAdministradores.add(c);
-			}
-					
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			try {
-				con.close();
-				pst.close();
-				rs.close();
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
-		tablaAdministradores.setItems(listaAdministradores);	
-		
-		
-		
-	}
-	
-	public void cargarChoferesFirebase () throws InterruptedException, ExecutionException, IOException
-	{
-	
-		
-		
-		CollectionReference choferes = ConectorFirebase.bdd.collection("choferes");
-		
-		ApiFuture<QuerySnapshot> querySnapshot = choferes.get();
-		
-		for (DocumentSnapshot doc : querySnapshot.get().getDocuments())
-		{
-			System.out.println(doc.get("patente"));
-		}
-		
-	}
-	
-
-
-	//BOTONES CHOFER
-	public void agregarChofer (ActionEvent e)
-	{
-		try {
-			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarChofer.fxml")));
-			Stage stage = new Stage();
-			stage.setScene(detalle);
-			stage.setTitle("Transportes Olmedo : Agregar Chofer");
-			stage.showAndWait();
-			
-			cargarChoferes();
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	public void editarChofer (ActionEvent e)
-	{
-		cuenta c = tablaChoferes.getSelectionModel().getSelectedItem(); //Cuenta del chofer seleccionado
-	
-		if(c!=null)
-		{
-			try {
-				FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarChofer.fxml"));
-				Parent root = loader.load();
-		
-				EditarChoferControlador ventana = loader.getController();
-				
-				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
-			
-				loader.setController(ventana);
-				
-				Scene detalle = new Scene(root);
-				Stage stage = new Stage();
-				
-				stage.setScene(detalle);
-				stage.setTitle("Transportes Olmedo : Editar Chofer");
-				stage.showAndWait();
-				
-				cargarChoferes();
-				
-				
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		else
-		{
-			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
-		}
-		
-		
-		
-	}
-	public void borrarChofer (ActionEvent e)
-	{
-		
-		cuenta c = tablaChoferes.getSelectionModel().getSelectedItem();
-		
-		if(c != null)
-		{
-			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
-			
-			if(opcion.get()==ButtonType.OK)
-			{
-				Connection con = conector.conectar();	
-				
-				
-				
-				
-				int id = c.getIdCuenta();
-				
-				String query = "DELETE FROM cuenta WHERE cuenta.id_cuenta=?";
-				PreparedStatement pst = null;
-				
-				try {
-					pst = con.prepareStatement(query);
-					pst.setInt(1, id);
-					
-					pst.executeUpdate();
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}finally {
-					try {
-						con.close();
-						pst.close();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-				}
-				cargarChoferes();		
-			}
-			
-		}
-		else
-		{
-			FUNCIONES.dialogo("Información", "No hay ningún chofer seleccionado");
-		}
-		
-		
-	}
-	public void verHistorial (ActionEvent e)
-	{
-		try {
-			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("DetalleChoferes.fxml")));
-			Stage stage = new Stage();
-			stage.setScene(detalle);
-			stage.setTitle("Transportes Olmedo : Historial Chofer");
-			stage.showAndWait();
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	
-	public void editarAdministrador (ActionEvent e)
-	{
-		cuenta c = tablaAdministradores.getSelectionModel().getSelectedItem(); //Cuenta del chofer seleccionado
-		
-		if(c!=null)
-		{
-			try {
-				FXMLLoader loader= new FXMLLoader(getClass().getResource("EditarAdministrador.fxml"));
-				Parent root = loader.load();
-		
-				EditarAdministradorControlador ventana = loader.getController();
-				
-				ventana.inicializarVariables(c.getIdCuenta(), c.getNombreUsuario(), c.getRut(), c.getContrasena(), c.getNombre(), c.getTelefono());
-			
-				loader.setController(ventana);
-				
-				Scene detalle = new Scene(root);
-				Stage stage = new Stage();
-				
-				stage.setScene(detalle);
-				stage.setTitle("Transportes Olmedo : Editar Administrador");
-				stage.showAndWait();
-				
-				cargarAdministradores();
-				
-				
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		else
-		{
-			FUNCIONES.dialogo("Información", "No hay ningún administrador seleccionado");
-		}
-		
-		
-		
-		
-	}
-	public void agregarAdministrador (ActionEvent e)
-	{
-		try {
-			Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarAdministrador.fxml")));
-			Stage stage = new Stage();
-			stage.setScene(detalle);
-			stage.setTitle("Transportes Olmedo : Detalle Chofer");
-			stage.showAndWait();
-			
-			cargarAdministradores();
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	public void borrarAdministrador (ActionEvent e)
-	{
-		cuenta c = tablaAdministradores.getSelectionModel().getSelectedItem();
-		
-		if(c != null && !c.nombreUsuario.equals("admin"))
-		{
-			Optional<ButtonType> opcion = FUNCIONES.dialogoConfirmacion("¿Está seguro que desea eliminar la cuenta seleccionada?");
-			
-			if(opcion.get()==ButtonType.OK)
-			{
-				Connection con = conector.conectar();	
-				
-				int id = c.getIdCuenta();
-				
-				String query = "DELETE FROM cuenta WHERE cuenta.id_cuenta=?";
-				PreparedStatement pst = null;
-				
-				try {
-					pst = con.prepareStatement(query);
-					pst.setInt(1, id);
-					
-					pst.executeUpdate();
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}finally {
-					try {
-						con.close();
-						pst.close();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-				}
-				cargarChoferes();		
-			}
-			
-		}
-		else if(c.nombreUsuario.equals("admin"))
-		{
-			FUNCIONES.dialogo("Información", "La cuenta seleccionada no puede ser borrada");
-		}
-		
-		else
-		{
-			FUNCIONES.dialogo("Información", "No hay ningún administrador seleccionado");
-		}
-		
-		
-		
-		cargarAdministradores();
-	}
-	
-	
-	*/
 	
 	
 
