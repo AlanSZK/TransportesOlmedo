@@ -1,2 +1,2 @@
 # TransportesOlmedo
-Repositorio para aplicación de escritorio del admin
+Repositorio para aplicación de escritorio para administrador.
