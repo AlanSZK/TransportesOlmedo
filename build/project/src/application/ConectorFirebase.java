@@ -17,7 +17,6 @@ public class ConectorFirebase {
 	public static void conectar () throws IOException
 	{
 		
-		//FirebaseApp.getInstance().getApps().clear();
 		
 		FileInputStream serviceAccount =
 		new FileInputStream("firebase/app-olmedo-firebase-adminsdk-elztd-eb56c37ff5.json");

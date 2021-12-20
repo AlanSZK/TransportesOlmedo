@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -26,6 +27,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class CamionesControlador implements Initializable {
@@ -74,7 +76,6 @@ public class CamionesControlador implements Initializable {
 	
 	ObservableList <camion> listaCamiones = FXCollections.observableArrayList();
 
-	ConectorBDD conector = new ConectorBDD();
 
 	
 	public static String patente;
@@ -135,9 +136,11 @@ public class CamionesControlador implements Initializable {
 				loader.setController(ventana);
 				
 				Scene detalle = new Scene(root);
+				detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);
+				stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 				stage.setTitle("Transportes Olmedo : Historial camión");
 				stage.showAndWait();
 				
@@ -163,6 +166,7 @@ public class CamionesControlador implements Initializable {
 			detalle.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(detalle);
+			stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 			stage.setTitle("Transportes Olmedo : Agregar Camiones");
 			stage.showAndWait();
 			
@@ -201,6 +205,7 @@ public class CamionesControlador implements Initializable {
 
                 stage.setScene(detalle);
                 stage.setTitle("Transportes Olmedo : Editar Camión");
+                stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
                 stage.showAndWait();
 
                 cargarCamiones();
@@ -243,9 +248,7 @@ public class CamionesControlador implements Initializable {
        
     }
     
-		
-    
-	
+			
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FXpat.setCellValueFactory(new PropertyValueFactory<>("patente"));
@@ -263,102 +266,3 @@ public class CamionesControlador implements Initializable {
 }
 
 
-///MYSQL
-/* public void agregarCamion (ActionEvent e)
-{
-	try {
-		Scene detalle = new Scene(FXMLLoader.load(getClass().getResource("AgregarCamiones.fxml")));
-		Stage stage = new Stage();
-		stage.setScene(detalle);
-		stage.setTitle("Transportes Olmedo : Agregar Camion");
-		stage.showAndWait();
-		
-		try {
-			cargarCamiones();
-		} catch (InterruptedException | ExecutionException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-} */
-
-/* public void cargarCamiones() 
-{
-	listaCamiones.clear();
-	
-	Connection con = conector.conectar();
-	
-	PreparedStatement pst = null;
-	ResultSet rs = null;
-	
-	String query = "SELECT * FROM camion";
-	
-	try {
-		pst = con.prepareStatement(query);
-		rs = pst.executeQuery();
-		
-		while (rs.next()) {
-			camion c = new camion(rs.getString("patente"), rs.getString("marca"));
-			listaCamiones.add(c);
-		}
-		tablaCamion.setItems(listaCamiones);
-		
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} finally {
-		try {
-			con.close();
-			pst.close();
-			rs.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-} */
-
-/*
-public void cargarCamiones() 
-{
-	listaCamiones.clear();
-	
-	Connection con = conector.conectar();
-	
-	PreparedStatement pst = null;
-	ResultSet rs = null;
-	
-	String query = "SELECT * FROM camion";
-	
-	try {
-		pst = con.prepareStatement(query);
-		rs = pst.executeQuery();
-		
-		while (rs.next()) {
-			camion c = new camion(rs.getString("patente"), rs.getString("marca"));
-			listaCamiones.add(c);
-		}
-		tablaCamion.setItems(listaCamiones);
-		
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} finally {
-		try {
-			con.close();
-			pst.close();
-			rs.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-}
-
-*/

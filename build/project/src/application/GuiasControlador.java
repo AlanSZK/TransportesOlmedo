@@ -1,8 +1,8 @@
 package application;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -12,13 +12,10 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
-
-import application.PacientesControlador.paciente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class GuiasControlador implements Initializable {
@@ -277,6 +275,7 @@ public class GuiasControlador implements Initializable {
 				Stage stage = new Stage();
 				
 				stage.setScene(detalle);
+				stage.getIcons().add(new Image(new FileInputStream("img/transOlmedoLogo.png")));
 				stage.setTitle("Transportes Olmedo : Detalle Guía");
 				stage.showAndWait();
 				
